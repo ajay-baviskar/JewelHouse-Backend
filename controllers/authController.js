@@ -6,7 +6,6 @@ exports.register = async (req, res) => {
     const { name, email, mobile, password } = req.body;
 
     try {
-        // Basic field validation
         if (!name || !email || !mobile || !password) {
             return res.status(400).json({
                 status: false,
@@ -15,24 +14,20 @@ exports.register = async (req, res) => {
             });
         }
 
-        // Check if user already exists
         let user = await User.findOne({ email });
         if (user) {
-            return res.status(409).json({  // 409 Conflict
+            return res.status(409).json({ 
                 status: false,
                 message: "User with this email already exists",
                 data: null
             });
         }
 
-        // Create new user
         user = new User({ name, email, mobile, password });
 
-        // Hash the password
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
-        // Save to DB
         await user.save();
 
         // Success Response
