@@ -17,12 +17,14 @@ const goldRoutes = require('./routes/goldRoutes');
 const diamondRoutes = require('./routes/diamondRoutes');
 const quotationRoutes = require('./routes/quotationRoutes');
 const authRoutes = require('./routes/auth');
-
+const orderRoutes = require('./routes/orderRoutes');
 // Routes
 app.use('/api/gold', goldRoutes);
 app.use('/api/diamonds', diamondRoutes);
 app.use('/api/quotation', quotationRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/order', orderRoutes);
+
 
 // Default route
 app.get('/', (req, res) => {
