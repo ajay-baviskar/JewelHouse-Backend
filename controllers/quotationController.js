@@ -61,7 +61,25 @@ const getQuotationById = async (req, res) => {
   }
 };
 
+// In controllers/quotationController.js
+
+
+const getAllQuotations = async (req, res) => {
+  try {
+    const quotations = await Quotation.find().sort({ createdAt: -1 });
+     return res.status(200).json({
+      success: true,
+      message: "Quotation get successfully",
+      data: quotations
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch quotations', error: error.message });
+  }
+};
+
+
 module.exports = {
   submitQuotation,
-  getQuotationById
+  getQuotationById,
+  getAllQuotations
 };
