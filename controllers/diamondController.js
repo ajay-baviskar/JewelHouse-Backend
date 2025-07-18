@@ -141,9 +141,76 @@ const getDropdownData = async (req, res) => {
     }
 };
 
+
+
+const getDiamondPrice = async (req, res) => {
+  try {
+    const { size, color, shape, purity } = req.query;
+
+    if (!size || !color || !shape || !purity) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide size, color, shape, and purity in query params"
+      });
+    }
+
+    const numericSize = parseFloat(size);
+
+    if (isNaN(numericSize)) {
+      return res.status(400).json({
+        success: false,
+        message: "Size must be a numeric value"
+      });
+    }
+
+    // Fetch all diamonds that match color, shape, purity
+    const diamonds = await Diamond.find({
+      Color: color,
+      Shape: shape,
+      Purity: purity
+    });
+
+    // Filter by size range
+    const matchingDiamond = diamonds.find(d => {
+      if (d.Size && typeof d.Size === 'string' && d.Size.includes('-')) {
+        const [minStr, maxStr] = d.Size.split('-').map(s => s.trim());
+        const min = parseFloat(minStr);
+        const max = parseFloat(maxStr);
+        return numericSize >= min && numericSize <= max;
+      }
+      return false;
+    });
+
+    if (!matchingDiamond) {
+      return res.status(404).json({
+        success: false,
+        message: "No matching diamond found for the given size range"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Price fetched successfully",
+      data: {
+        price: matchingDiamond.Price
+      }
+    });
+
+  } catch (error) {
+    console.error("Fetch Price Error:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching price",
+      error: error.message
+    });
+  }
+};
+
+
 // Export all controller functions
 module.exports = {
     importDiamonds,
     getAllDiamonds,
-    getDropdownData
+    getDropdownData,
+    getDiamondPrice
 };
