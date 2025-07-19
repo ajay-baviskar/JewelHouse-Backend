@@ -17,6 +17,7 @@ exports.getGoldPrice = async (req, res) => {
         });
 
         return res.status(200).json({
+            code: 200,
             status: true,
             message: "Gold price fetched successfully",
             data: response.data
@@ -26,6 +27,7 @@ exports.getGoldPrice = async (req, res) => {
         console.error("Error fetching gold price:", error.message);
 
         return res.status(500).json({
+            code: 500,
             status: false,
             message: "Failed to fetch gold price",
             data: null

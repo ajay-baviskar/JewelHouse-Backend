@@ -8,6 +8,7 @@ const importDiamonds = async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({
+                code: 400,
                 status: false,
                 message: "Please upload an Excel file"
             });
@@ -23,6 +24,7 @@ const importDiamonds = async (req, res) => {
 
         if (!data || data.length === 0) {
             return res.status(400).json({
+                code: 400,
                 status: false,
                 message: "Excel file is empty or invalid format"
             });
@@ -35,6 +37,7 @@ const importDiamonds = async (req, res) => {
         fs.unlinkSync(filePath);
 
         return res.status(200).json({
+            code: 200,
             status: true,
             message: "Diamonds imported successfully",
             total: data.length
@@ -43,6 +46,7 @@ const importDiamonds = async (req, res) => {
     } catch (err) {
         console.error("Import Error:", err.message);
         return res.status(500).json({
+            code: 500,
             status: false,
             message: "Failed to import diamonds",
             error: err.message
@@ -64,6 +68,7 @@ const getAllDiamonds = async (req, res) => {
             .sort({ _id: -1 });
 
         return res.status(200).json({
+            code: 200,
             status: true,
             message: "Diamonds fetched successfully",
             total,
@@ -75,6 +80,7 @@ const getAllDiamonds = async (req, res) => {
     } catch (err) {
         console.error("Fetch Error:", err.message);
         return res.status(500).json({
+            code: 500,
             status: false,
             message: "Failed to fetch diamonds",
             error: err.message
@@ -144,66 +150,71 @@ const getDropdownData = async (req, res) => {
 
 
 const getDiamondPrice = async (req, res) => {
-  try {
-    const { size, color, shape, purity } = req.query;
+    try {
+        const { size, color, shape, purity } = req.query;
 
-    if (!size || !color || !shape || !purity) {
-      return res.status(400).json({
-        success: false,
-        message: "Please provide size, color, shape, and purity in query params"
-      });
+        if (!size || !color || !shape || !purity) {
+            return res.status(400).json({
+
+                success: false,
+                message: "Please provide size, color, shape, and purity in query params"
+            });
+        }
+
+        const numericSize = parseFloat(size);
+
+        if (isNaN(numericSize)) {
+            return res.status(400).json({
+                code: 400,
+                success: false,
+                message: "Size must be a numeric value"
+            });
+        }
+
+        // Fetch all diamonds that match color, shape, purity
+        const diamonds = await Diamond.find({
+            Color: color,
+            Shape: shape,
+            Purity: purity
+        });
+
+        // Filter by size range
+        const matchingDiamond = diamonds.find(d => {
+            if (d.Size && typeof d.Size === 'string' && d.Size.includes('-')) {
+                const [minStr, maxStr] = d.Size.split('-').map(s => s.trim());
+                const min = parseFloat(minStr);
+                const max = parseFloat(maxStr);
+                return numericSize >= min && numericSize <= max;
+            }
+            return false;
+        });
+
+        if (!matchingDiamond) {
+            return res.status(404).json({
+                code: 404,
+                success: false,
+                message: "No matching diamond found for the given size range"
+            });
+        }
+
+        return res.status(200).json({
+            code: 200,
+            success: true,
+            message: "Price fetched successfully",
+            data: {
+                price: matchingDiamond.Price
+            }
+        });
+
+    } catch (error) {
+        console.error("Fetch Price Error:", error.message);
+        return res.status(500).json({
+            code: 500,
+            success: false,
+            message: "Error fetching price",
+            error: error.message
+        });
     }
-
-    const numericSize = parseFloat(size);
-
-    if (isNaN(numericSize)) {
-      return res.status(400).json({
-        success: false,
-        message: "Size must be a numeric value"
-      });
-    }
-
-    // Fetch all diamonds that match color, shape, purity
-    const diamonds = await Diamond.find({
-      Color: color,
-      Shape: shape,
-      Purity: purity
-    });
-
-    // Filter by size range
-    const matchingDiamond = diamonds.find(d => {
-      if (d.Size && typeof d.Size === 'string' && d.Size.includes('-')) {
-        const [minStr, maxStr] = d.Size.split('-').map(s => s.trim());
-        const min = parseFloat(minStr);
-        const max = parseFloat(maxStr);
-        return numericSize >= min && numericSize <= max;
-      }
-      return false;
-    });
-
-    if (!matchingDiamond) {
-      return res.status(404).json({
-        success: false,
-        message: "No matching diamond found for the given size range"
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Price fetched successfully",
-      data: {
-        price: matchingDiamond.Price
-      }
-    });
-
-  } catch (error) {
-    console.error("Fetch Price Error:", error.message);
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching price",
-      error: error.message
-    });
-  }
 };
 
 
