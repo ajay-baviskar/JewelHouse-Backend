@@ -121,9 +121,9 @@ const getDropdownData = async (req, res) => {
         const purities = new Set();
 
         diamonds.forEach(d => {
-            if (d.Shape) shapes.add(normalizeShape(d.Shape));
-            if (d.Color) normalizeColor(d.Color).forEach(c => colors.add(c));
-            if (d.Purity) normalizePurity(d.Purity).forEach(p => purities.add(p));
+            if (d.Shape) shapes.add(d.Shape.trim().toUpperCase());
+            if (d.Color) colors.add(d.Color.trim().toUpperCase());    // Includes E-F, G-H etc.
+            if (d.Purity) purities.add(d.Purity.trim().toUpperCase()); // Includes VVS1-VVS2 etc.
         });
 
         return res.json({
