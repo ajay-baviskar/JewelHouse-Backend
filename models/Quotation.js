@@ -39,6 +39,7 @@ const quotationSummarySchema = new mongoose.Schema({
 }, { _id: false });
 
 const quotationSchema = new mongoose.Schema({
+  userId:{ type: String },
   date: { type: Date, default: Date.now },
   clientDetails: clientDetailsSchema,
   goldDetails: goldDetailsSchema,

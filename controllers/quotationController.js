@@ -87,22 +87,59 @@ const submitQuotation = async (req, res) => {
 
 
 
+// const getQuotationById = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const quotation = await Quotation.findById(id);
+
+//     if (!quotation) {
+//       return res.status(404).json({ code: 404, status: false, message: 'Quotation not found' });
+//     }
+
+//     res.status(200).json({ code: 200, status: true, data: quotation });
+//   } catch (error) {
+//     res.status(500).json({ code: 500, status: false, message: 'Server Error', error: error.message });
+//   }
+// };
+
+// In controllers/quotationController.js
+
+
 const getQuotationById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const quotation = await Quotation.findById(id);
+    const { userId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const item_per_page = parseInt(req.query.item_per_page) || 10;
+    const skip = (page - 1) * item_per_page;
 
-    if (!quotation) {
-      return res.status(404).json({ code: 404, status: false, message: 'Quotation not found' });
-    }
+    const total = await Quotation.countDocuments({ userId });
 
-    res.status(200).json({ code: 200, status: true, data: quotation });
+    const quotations = await Quotation.find({ userId })
+      .sort({ createdAt: -1 }) // Sort by latest first
+      .skip(skip)
+      .limit(item_per_page);
+
+    res.status(200).json({
+      code: 200,
+      status: true,
+      data: quotations,
+      meta: {
+        page,
+        item_per_page,
+        total_items: total,
+        total_pages: Math.ceil(total / item_per_page),
+      },
+    });
   } catch (error) {
-    res.status(500).json({ code: 500, status: false, message: 'Server Error', error: error.message });
+    res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server Error',
+      error: error.message,
+    });
   }
 };
 
-// In controllers/quotationController.js
 
 
 const getAllQuotations = async (req, res) => {
