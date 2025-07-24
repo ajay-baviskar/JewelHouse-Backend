@@ -26,14 +26,16 @@ const submitQuotation = async (req, res) => {
     }
 
     // Save in DB
-    const newQuotation = await Quotation.create({
-      userId,
-      date,
-      clientDetails,
-      goldDetails,
-      diamondDetails,
-      quotationSummary
-    });
+console.log("Saving quotation to DB...");
+const newQuotation = await Quotation.create({
+  userId,
+  date,
+  clientDetails,
+  goldDetails,
+  diamondDetails,
+  quotationSummary
+});
+console.log("Quotation saved:", newQuotation);
 
     // Generate HTML from template
     const htmlContent = generateQuotationHTML({
@@ -87,7 +89,7 @@ const submitQuotation = async (req, res) => {
 
 
 
-// const getQuotationById = async (req, res) => {
+// const getQuotationByUserId = async (req, res) => {
 //   try {
 //     const { id } = req.params;
 //     const quotation = await Quotation.findById(id);
@@ -105,17 +107,26 @@ const submitQuotation = async (req, res) => {
 // In controllers/quotationController.js
 
 
-const getQuotationById = async (req, res) => {
+const getQuotationByUserId = async (req, res) => {
   try {
     const { userId } = req.params;
     const page = parseInt(req.query.page) || 1;
     const item_per_page = parseInt(req.query.item_per_page) || 10;
     const skip = (page - 1) * item_per_page;
 
-    const total = await Quotation.countDocuments({ userId });
+    const filter = { userId };
 
-    const quotations = await Quotation.find({ userId })
-      .sort({ createdAt: -1 }) // Sort by latest first
+    const total = await Quotation.countDocuments(filter);
+    if (total === 0) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: 'No quotations found for the given userId.',
+      });
+    }
+
+    const quotations = await Quotation.find(filter)
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(item_per_page);
 
@@ -142,6 +153,8 @@ const getQuotationById = async (req, res) => {
 
 
 
+
+
 const getAllQuotations = async (req, res) => {
   try {
     const quotations = await Quotation.find().sort({ createdAt: -1 });
@@ -159,6 +172,6 @@ const getAllQuotations = async (req, res) => {
 
 module.exports = {
   submitQuotation,
-  getQuotationById,
+  getQuotationByUserId,
   getAllQuotations
 };

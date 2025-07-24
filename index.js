@@ -13,6 +13,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use('/pdfs', express.static(path.join(__dirname, 'public/pdfs')));
+app.use('/images', express.static('public/images'));
 
 // Route imports
 const goldRoutes = require('./routes/goldRoutes');
