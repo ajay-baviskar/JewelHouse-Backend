@@ -7,6 +7,6 @@ const DiamondSchema = new mongoose.Schema({
     Purity: { type: String, default: null },
     Discount: { type: String, default: null },
     Price: { type: String, default: null }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Diamond', DiamondSchema);

@@ -48,20 +48,31 @@ const getOrderHistory = async (req, res) => {
     const { userId } = req.params;
 
     try {
-        const orders = await Order.find({ userId }).populate('quotationId');
+        const orders = await Order.find({ userId })
+            .populate('quotationId')
+            .sort({ createdAt: -1 }); // 👈 descending order
 
         if (!orders.length) {
-            return res.status(404).json({ code: 404, status: false, message: 'No orders found for this user.' });
+            return res.status(404).json({
+                code: 404,
+                status: false,
+                message: 'No orders found for this user.',
+            });
         }
 
         res.status(200).json({
             code: 200,
+            status: true,
             message: 'Order history fetched successfully',
             orders,
         });
     } catch (error) {
         logger.error('Error fetching order history:', error);
-        res.status(500).json({ code: 500, status: false, message: 'Server error' });
+        res.status(500).json({
+            code: 500,
+            status: false,
+            message: 'Server error',
+        });
     }
 };
 
