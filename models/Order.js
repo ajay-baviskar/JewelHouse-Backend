@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    quotationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quotation', required: true },
-    orderDate: { type: Date, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    quotationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quotation' },
+    orderDate: { type: Date },
     customerDetails: {
         name: String,
         contactNumber: String,
         address: String,
         pinCode: String,
         email: String,
-        aadhaarNumber: { type: String, required: true },
-        panCardNumber: { type: String, required: true },
-        expectedDeliverydate: { type: String, required: true }
+        aadhaarNumber: { type: String },
+        panCardNumber: { type: String },
+        expectedDeliverydate: { type: String }
     },
     orderSummary: {
         goldCost: Number,
@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema({
         finalAmount: Number
     },
     paymentStatus: { type: String, enum: ['pending', 'paid'], default: 'pending' },
-    orderStatus: { type: String, enum: ['confirmed', 'shipped', 'delivered'], default: 'confirmed' }
+    orderStatus: { type: String, enum: ['pending','confirmed', 'shipped', 'delivered'], default: 'pending' }
 });
 
 module.exports = mongoose.model('Order', orderSchema);
