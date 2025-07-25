@@ -11,6 +11,7 @@ const submitQuotation = async (req, res) => {
     const {
       userId,
       date,
+      image_url,
       clientDetails,
       goldDetails,       // this is a single object
       diamondDetails,    // this is an array
@@ -26,19 +27,21 @@ const submitQuotation = async (req, res) => {
     }
 
     // Save in DB
-console.log("Saving quotation to DB...");
-const newQuotation = await Quotation.create({
-  userId,
-  date,
-  clientDetails,
-  goldDetails,
-  diamondDetails,
-  quotationSummary
-});
-console.log("Quotation saved:", newQuotation);
+    console.log("Saving quotation to DB...");
+    const newQuotation = await Quotation.create({
+      userId,
+      date,
+      image_url,
+      clientDetails,
+      goldDetails,
+      diamondDetails,
+      quotationSummary
+    });
+    console.log("Quotation saved:", newQuotation);
 
     // Generate HTML from template
     const htmlContent = generateQuotationHTML({
+      image_url,
       clientDetails,
       goldDetails,
       diamondDetails,
@@ -51,7 +54,7 @@ console.log("Quotation saved:", newQuotation);
     if (!fs.existsSync(pdfsDir)) {
       fs.mkdirSync(pdfsDir, { recursive: true });
     }
-
+    const imageURL = newQuotation.image_url;
     const fileName = `quotation_${newQuotation._id}.pdf`;
     const filePath = path.join(pdfsDir, fileName);
 
@@ -68,11 +71,12 @@ console.log("Quotation saved:", newQuotation);
       return res.status(201).json({
         code: 201,
         success: true,
-        message: "Quotation created and PDF generated",
-        data: {
-          quotation: newQuotation,
-          pdfUrl: `/pdfs/${fileName}`
-        }
+        message: "Quotation created and PDF generated"
+        // data: {
+        //   quotation: newQuotation,
+        //   pdfUrl: `/pdfs/${fileName}`,
+        //   goldImageURL : imageURL
+        // }
       });
     });
 

@@ -5,6 +5,7 @@ const clientDetailsSchema = new mongoose.Schema({
   contactNumber: { type: String },
   address: { type: String },
   email: { type: String }
+
 }, { _id: false });
 
 const goldDetailsSchema = new mongoose.Schema({
@@ -41,6 +42,7 @@ const quotationSummarySchema = new mongoose.Schema({
 const quotationSchema = new mongoose.Schema({
   userId: { type: String },
   date: { type: Date, default: Date.now },
+  image_url: { type: String },
   clientDetails: clientDetailsSchema,
   goldDetails: goldDetailsSchema,
   diamondDetails: [diamondDetailSchema],
