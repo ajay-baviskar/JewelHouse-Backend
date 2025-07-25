@@ -4,7 +4,8 @@ const clientDetailsSchema = new mongoose.Schema({
   name: { type: String },
   contactNumber: { type: String },
   address: { type: String },
-  email: { type: String }
+  email: { type: String },
+  city: { type: String }
 
 }, { _id: false });
 
