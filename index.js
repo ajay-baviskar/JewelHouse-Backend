@@ -21,13 +21,15 @@ const diamondRoutes = require('./routes/diamondRoutes');
 const quotationRoutes = require('./routes/quotationRoutes');
 const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/orderRoutes');
+const imageUploadRoute = require('./routes/imageUploadRoute');
+
 // Routes
 app.use('/api/gold', goldRoutes);
 app.use('/api/diamonds', diamondRoutes);
 app.use('/api/quotation', quotationRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/order', orderRoutes);
-
+app.use('/api/upload', imageUploadRoute);
 
 // Default route
 app.get('/', (req, res) => {
