@@ -1,7 +1,11 @@
 // controllers/orderController.js
 const Order = require('../models/Order');
 const Quotation = require('../models/Quotation');
+const User = require('../models/User');
 const logger = require('../utils/logger');
+
+
+
 
 const placeOrder = async (req, res) => {
     try {
@@ -79,7 +83,76 @@ const getOrderHistory = async (req, res) => {
 
 
 
+
+const getSummaryCounts = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (userId) {
+      // Check if user exists
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({
+          code: 404,
+          status: false,
+          message: 'User not found',
+        });
+      }
+
+      // Count user-specific data
+      const [orderCount, pendingOrderCount, quotationCount] = await Promise.all([
+        Order.countDocuments({ userId }),
+        Order.countDocuments({ userId, orderStatus: 'pending' }),
+        Quotation.countDocuments({ userId }),
+      ]);
+
+      return res.status(200).json({
+        code: 200,
+        status: true,
+        message: 'User summary fetched successfully',
+        data: {
+          userId,
+          totalOrders: orderCount,
+          totalPendingOrders: pendingOrderCount,
+          totalQuotations: quotationCount,
+        },
+      });
+    } else {
+      // Global summary
+      const [userCount, orderCount, pendingOrderCount, quotationCount] = await Promise.all([
+        User.countDocuments(),
+        Order.countDocuments(),
+        Order.countDocuments({ orderStatus: 'pending' }),
+        Quotation.countDocuments(),
+      ]);
+
+      return res.status(200).json({
+        code: 200,
+        status: true,
+        message: 'Summary fetched successfully',
+        data: {
+          totalUsers: userCount,
+          totalOrders: orderCount,
+          totalPendingOrders: pendingOrderCount,
+          totalQuotations: quotationCount,
+        },
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching summary:', error);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server error',
+    });
+  }
+};
+
+
+
+
 module.exports = {
     placeOrder,
-    getOrderHistory
+    getOrderHistory,
+    getSummaryCounts
 };
