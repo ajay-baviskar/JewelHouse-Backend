@@ -71,12 +71,12 @@ const submitQuotation = async (req, res) => {
       return res.status(201).json({
         code: 201,
         success: true,
-        message: "Quotation created and PDF generated"
-        // data: {
-        //   quotation: newQuotation,
-        //   pdfUrl: `/pdfs/${fileName}`,
-        //   goldImageURL : imageURL
-        // }
+        message: "Quotation created and PDF generated",
+        data: {
+          quotation: newQuotation,
+          pdfUrl: `/pdfs/${fileName}`,
+          goldImageURL : imageURL
+        }
       });
     });
 

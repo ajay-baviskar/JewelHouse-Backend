@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
         name: String,
         contactNumber: String,
         address: String,
+        city: String,
         pinCode: String,
         email: String,
         aadhaarNumber: { type: String },

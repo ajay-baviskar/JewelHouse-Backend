@@ -29,6 +29,7 @@ const diamondDetailSchema = new mongoose.Schema({
   weight: { type: Number },
   ratePerCts: { type: Number },
   discount: { type: Number },
+  ratePerCtsAfterDis: { type: Number },
   totalAmount: { type: Number }
 }, { _id: false });
 

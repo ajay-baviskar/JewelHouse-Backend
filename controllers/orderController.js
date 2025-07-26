@@ -99,11 +99,14 @@ const getSummaryCounts = async (req, res) => {
         });
       }
 
-      // Count user-specific data
-      const [orderCount, pendingOrderCount, quotationCount] = await Promise.all([
+      // Count user-specific data with different statuses
+      const [orderCount, quotationCount, pendingOrders, confirmedOrders, shippedOrders, deliveredOrders] = await Promise.all([
         Order.countDocuments({ userId }),
-        Order.countDocuments({ userId, orderStatus: 'pending' }),
         Quotation.countDocuments({ userId }),
+        Order.countDocuments({ userId, orderStatus: 'pending' }),
+        Order.countDocuments({ userId, orderStatus: 'confirmed' }),
+        Order.countDocuments({ userId, orderStatus: 'shipped' }),
+        Order.countDocuments({ userId, orderStatus: 'delivered' }),
       ]);
 
       return res.status(200).json({
@@ -113,17 +116,25 @@ const getSummaryCounts = async (req, res) => {
         data: {
           userId,
           totalOrders: orderCount,
-          totalPendingOrders: pendingOrderCount,
           totalQuotations: quotationCount,
+          orderStatusCounts: {
+            pending: pendingOrders,
+            confirmed: confirmedOrders,
+            shipped: shippedOrders,
+            delivered: deliveredOrders,
+          },
         },
       });
     } else {
-      // Global summary
-      const [userCount, orderCount, pendingOrderCount, quotationCount] = await Promise.all([
+      // Global summary with different statuses
+      const [userCount, orderCount, quotationCount, pendingOrders, confirmedOrders, shippedOrders, deliveredOrders] = await Promise.all([
         User.countDocuments(),
         Order.countDocuments(),
-        Order.countDocuments({ orderStatus: 'pending' }),
         Quotation.countDocuments(),
+        Order.countDocuments({ orderStatus: 'pending' }),
+        Order.countDocuments({ orderStatus: 'confirmed' }),
+        Order.countDocuments({ orderStatus: 'shipped' }),
+        Order.countDocuments({ orderStatus: 'delivered' }),
       ]);
 
       return res.status(200).json({
@@ -133,8 +144,13 @@ const getSummaryCounts = async (req, res) => {
         data: {
           totalUsers: userCount,
           totalOrders: orderCount,
-          totalPendingOrders: pendingOrderCount,
           totalQuotations: quotationCount,
+          orderStatusCounts: {
+            pending: pendingOrders,
+            confirmed: confirmedOrders,
+            shipped: shippedOrders,
+            delivered: deliveredOrders,
+          },
         },
       });
     }
