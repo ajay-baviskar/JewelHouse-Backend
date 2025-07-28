@@ -73,7 +73,7 @@ const submitQuotation = async (req, res) => {
         success: true,
         message: "Quotation created and PDF generated",
         data: {
-          quotation: newQuotation,
+          //quotation: newQuotation,
           pdfUrl: `/pdfs/${fileName}`,
           goldImageURL : imageURL
         }

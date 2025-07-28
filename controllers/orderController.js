@@ -8,76 +8,76 @@ const logger = require('../utils/logger');
 
 
 const placeOrder = async (req, res) => {
-    try {
-        const {
-            userId,
-            quotationId,
-            orderDate,
-            customerDetails,
-            paymentStatus,
-            orderStatus
-        } = req.body;
+  try {
+    const {
+      userId,
+      quotationId,
+      orderDate,
+      customerDetails,
+      paymentStatus,
+      orderStatus
+    } = req.body;
 
-        const quotation = await Quotation.findById(quotationId);
-        if (!quotation) {
-            return res.status(404).json({ code: 404, status: false, message: 'Quotation not found' });
-        }
-
-        const order = new Order({
-            userId,
-            quotationId,
-            orderDate,
-            customerDetails,
-            paymentStatus,
-            orderStatus
-        });
-
-        await order.save();
-
-        res.status(201).json({ code: 201, status: true, message: 'Order placed successfully', order });
-
-    } catch (err) {
-        logger.error('Error placing order:', {
-            message: err.message,
-            stack: err.stack,
-            errors: err.errors || null
-        });
-
-        res.status(500).json({ code: 500, status: false, message: 'Server error', error: err.message });
+    const quotation = await Quotation.findById(quotationId);
+    if (!quotation) {
+      return res.status(404).json({ code: 404, status: false, message: 'Quotation not found' });
     }
+
+    const order = new Order({
+      userId,
+      quotationId,
+      orderDate,
+      customerDetails,
+      paymentStatus,
+      orderStatus
+    });
+
+    await order.save();
+
+    res.status(201).json({ code: 201, status: true, message: 'Order placed successfully', order });
+
+  } catch (err) {
+    logger.error('Error placing order:', {
+      message: err.message,
+      stack: err.stack,
+      errors: err.errors || null
+    });
+
+    res.status(500).json({ code: 500, status: false, message: 'Server error', error: err.message });
+  }
 };
 
 
 const getOrderHistory = async (req, res) => {
-    const { userId } = req.params;
+  const { userId } = req.params;
 
-    try {
-        const orders = await Order.find({ userId })
-            .populate('quotationId')
-            .sort({ createdAt: -1 }); // 👈 descending order
+  try {
+    const orders = await Order.find({ userId })
+      .populate('quotationId')
+      .sort({ createdAt: -1 }); // 👈 descending order
 
-        if (!orders.length) {
-            return res.status(404).json({
-                code: 404,
-                status: false,
-                message: 'No orders found for this user.',
-            });
-        }
-
-        res.status(200).json({
-            code: 200,
-            status: true,
-            message: 'Order history fetched successfully',
-            orders,
-        });
-    } catch (error) {
-        logger.error('Error fetching order history:', error);
-        res.status(500).json({
-            code: 500,
-            status: false,
-            message: 'Server error',
-        });
+    if (!orders.length) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: 'No orders found for this user.',
+      });
     }
+
+    res.status(200).json({
+      code: 200,
+      status: true,
+      message: 'Order history fetched successfully',
+      orders,
+    });
+  } catch (error) {
+    logger.error('Error fetching order history:', error);
+    res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server error',
+    });
+  }
 };
 
 
@@ -165,10 +165,110 @@ const getSummaryCounts = async (req, res) => {
 };
 
 
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params; // Order ID from URL
+    const { orderStatus } = req.body;
+
+    // Allowed statuses
+    const allowedStatuses = ['pending', 'confirmed', 'shipped', 'delivered'];
+
+    if (!allowedStatuses.includes(orderStatus)) {
+      return res.status(400).json({
+        code: 400,
+        status: false,
+        message: 'Invalid order status. Allowed statuses: pending, confirmed, shipped, delivered'
+      });
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id,
+      { orderStatus },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: 'Order not found'
+      });
+    }
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: 'Order status updated successfully',
+      data: updatedOrder
+    });
+  } catch (err) {
+    logger.error('Error updating order status:', {
+      message: err.message,
+      stack: err.stack,
+      errors: err.errors || null
+    });
+
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server error',
+      error: err.message
+    });
+  }
+};
+
+
+
+const getAllOrders = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Order.countDocuments();
+
+    const orders = await Order.find()
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 }) // latest first
+      .populate('userId', 'name email')
+      .populate('quotationId');
+
+    const totalPages = Math.ceil(total / limit);
+
+    res.status(200).json({
+      code: 200,
+      status: true,
+      message: 'Orders fetched successfully',
+      total,
+      page,
+      limit,
+      hasPreviousPage: page > 1,
+      hasNextPage: page < totalPages,
+      data: orders
+    });
+
+  } catch (err) {
+    logger.error('Error fetching orders:', {
+      message: err.message,
+      stack: err.stack,
+      errors: err.errors || null
+    });
+
+    res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server error',
+      error: err.message
+    });
+  }
+};
 
 
 module.exports = {
-    placeOrder,
-    getOrderHistory,
-    getSummaryCounts
+  placeOrder,
+  getOrderHistory,
+  getSummaryCounts,
+  updateOrderStatus,
+  getAllOrders
 };
