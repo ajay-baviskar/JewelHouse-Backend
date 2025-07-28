@@ -61,11 +61,24 @@ const getAllDiamonds = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-        const total = await Diamond.countDocuments();
-        const diamonds = await Diamond.find()
+        // Build filter object dynamically
+        const filter = {};
+        const filterableFields = ['Size', 'Color', 'Shape', 'Purity', 'Discount', 'Price'];
+
+        filterableFields.forEach((field) => {
+            if (req.query[field]) {
+                filter[field] = req.query[field];
+            }
+        });
+
+        const total = await Diamond.countDocuments(filter);
+        const diamonds = await Diamond.find(filter)
             .skip(skip)
             .limit(limit)
             .sort({ _id: -1 });
+
+        const hasPreviousPage = page > 1;
+        const hasNextPage = skip + diamonds.length < total;
 
         return res.status(200).json({
             code: 200,
@@ -74,6 +87,8 @@ const getAllDiamonds = async (req, res) => {
             total,
             page,
             limit,
+            hasPreviousPage,
+            hasNextPage,
             data: diamonds
         });
 
@@ -87,6 +102,8 @@ const getAllDiamonds = async (req, res) => {
         });
     }
 };
+
+
 
 // Helpers
 const normalizeShape = shape => {
@@ -218,10 +235,50 @@ const getDiamondPrice = async (req, res) => {
 };
 
 
+
+const updateDiamond = async (req, res) => {
+  try {
+    const diamondId = req.params.id;
+    const updateData = req.body;
+
+    const updatedDiamond = await Diamond.findByIdAndUpdate(diamondId, updateData, {
+      new: true, // return the updated document
+      runValidators: true // validate before update
+    });
+
+    if (!updatedDiamond) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: "Diamond not found"
+      });
+    }
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: "Diamond updated successfully",
+      data: updatedDiamond
+    });
+
+  } catch (error) {
+    console.error("Update Error:", error.message);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Failed to update diamond",
+      error: error.message
+    });
+  }
+};
+
+
+
 // Export all controller functions
 module.exports = {
     importDiamonds,
     getAllDiamonds,
     getDropdownData,
-    getDiamondPrice
+    getDiamondPrice,
+    updateDiamond
 };
