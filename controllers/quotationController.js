@@ -6,6 +6,7 @@ const { generateQuotationHTML } = require('../utils/generateHTML');
 const htmlPdf = require('html-pdf');
 
 // Submit Quotation API
+
 const submitQuotation = async (req, res) => {
   try {
     const {
@@ -54,11 +55,12 @@ const submitQuotation = async (req, res) => {
     if (!fs.existsSync(pdfsDir)) {
       fs.mkdirSync(pdfsDir, { recursive: true });
     }
+
     const imageURL = newQuotation.image_url;
     const fileName = `quotation_${newQuotation._id}.pdf`;
     const filePath = path.join(pdfsDir, fileName);
 
-    htmlPdf.create(htmlContent).toFile(filePath, (err, result) => {
+    htmlPdf.create(htmlContent).toFile(filePath, async (err, result) => {
       if (err) {
         console.error("PDF generation error:", err);
         return res.status(500).json({
@@ -68,14 +70,20 @@ const submitQuotation = async (req, res) => {
         });
       }
 
+      const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
+
+      // ✅ Save the PDF URL to the quotation document
+      await Quotation.findByIdAndUpdate(newQuotation._id, {
+        $set: { pdfUrl }
+      });
+
       return res.status(201).json({
         code: 201,
         success: true,
         message: "Quotation created and PDF generated",
         data: {
-          //quotation: newQuotation,
-          pdfUrl: `/pdfs/${fileName}`,
-          goldImageURL : imageURL
+          pdfUrl,
+          goldImageURL: imageURL
         }
       });
     });
@@ -90,7 +98,6 @@ const submitQuotation = async (req, res) => {
     });
   }
 };
-
 
 
 // const getQuotationByUserId = async (req, res) => {

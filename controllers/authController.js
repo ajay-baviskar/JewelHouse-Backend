@@ -125,3 +125,47 @@ exports.login = async (req, res) => {
         });
     }
 };
+
+
+const getAllUsers = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const total = await User.countDocuments();
+        const totalPages = Math.ceil(total / limit);
+
+        const users = await User.find()
+            .sort({ createdAt: -1 }) // newest first
+            .skip(skip)
+            .limit(limit);
+
+        return res.status(200).json({
+            code: 200,
+            success: true,
+            message: "Users fetched successfully",
+            total,
+            page,
+            limit,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < totalPages,
+            data: users
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            success: false,
+            message: 'Failed to fetch users',
+            error: error.message
+        });
+    }
+};
+
+
+module.exports = {
+    register: exports.register,
+    login: exports.login,
+    getAllUsers
+};

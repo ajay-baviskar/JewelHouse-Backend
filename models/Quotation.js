@@ -45,6 +45,7 @@ const quotationSchema = new mongoose.Schema({
   userId: { type: String },
   date: { type: Date, default: Date.now },
   image_url: { type: String },
+  pdfUrl: { type: String },
   clientDetails: clientDetailsSchema,
   goldDetails: goldDetailsSchema,
   diamondDetails: [diamondDetailSchema],
