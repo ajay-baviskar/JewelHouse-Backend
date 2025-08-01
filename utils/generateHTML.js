@@ -202,7 +202,7 @@ function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quo
                   <td>₹${quotationSummary.goldCost}</td>
                   <td>₹${quotationSummary.labourCost}</td>
                   <td>₹${quotationSummary.diamondCost}</td>
-                  <td>${quotationSummary.gst}%</td>
+                  <td>${quotationSummary.gst}</td>
                   <td class="total">₹${quotationSummary.total}</td>
                 </tr>
               </tbody>
