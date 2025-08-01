@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema({
         finalAmount: Number
     },
     paymentStatus: { type: String, enum: ['pending', 'paid'], default: 'pending' },
-    orderStatus: { type: String, enum: ['pending', 'confirmed', 'shipped', 'delivered'], default: 'pending' }
+    orderStatus: { type: String, enum: ['pending', 'placed','confirmed', 'shipped', 'delivered'], default: 'pending' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);
