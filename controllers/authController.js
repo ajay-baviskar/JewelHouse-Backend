@@ -3,10 +3,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
-    const { name, email, mobile, password } = req.body;
+    const { name, email, mobile, password, role } = req.body;
 
     try {
-        if (!name || !email || !mobile || !password) {
+        if (!name || !email || !mobile || !password || !role) {
             return res.status(400).json({
                 code: 400,
                 status: false,
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
             });
         }
 
-        user = new User({ name, email, mobile, password });
+        user = new User({ name, email, mobile, password,role });
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
@@ -61,7 +61,6 @@ exports.login = async (req, res) => {
     const { mobile, password } = req.body;
 
     try {
-        // Basic field validation
         if (!mobile || !password) {
             return res.status(400).json({
                 code: 400,
@@ -71,8 +70,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Find user by mobile
-        let user = await User.findOne({ mobile });
+        const user = await User.findOne({ mobile });
         if (!user) {
             return res.status(401).json({
                 code: 401,
@@ -82,7 +80,16 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Check password
+        // Role check
+        if (user.role !== 'MOBILE') {
+            return res.status(403).json({
+                code: 403,
+                status: false,
+                message: "Access denied. You are not authorized to login here.",
+                data: null
+            });
+        }
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({
@@ -93,7 +100,6 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Generate JWT Token
         const payload = { user: { id: user.id } };
 
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
@@ -126,6 +132,82 @@ exports.login = async (req, res) => {
     }
 };
 
+
+
+exports.loginAdmin = async (req, res) => {
+    const { mobile, password } = req.body;
+
+    try {
+        if (!mobile || !password) {
+            return res.status(400).json({
+                code: 400,
+                status: false,
+                message: "Mobile number and password are required",
+                data: null
+            });
+        }
+
+        const user = await User.findOne({ mobile });
+        if (!user) {
+            return res.status(401).json({
+                code: 401,
+                status: false,
+                message: "Invalid mobile number or password",
+                data: null
+            });
+        }
+
+        // Role check
+        if (user.role !== 'ADMIN') {
+            return res.status(403).json({
+                code: 403,
+                status: false,
+                message: "Access denied. You are not authorized to login here.",
+                data: null
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({
+                code: 401,
+                status: false,
+                message: "Invalid mobile number or password",
+                data: null
+            });
+        }
+
+        const payload = { user: { id: user.id } };
+
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+            if (err) throw err;
+
+            return res.status(200).json({
+                code: 200,
+                status: true,
+                message: "Login successful",
+                data: {
+                    token,
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        mobile: user.mobile
+                    }
+                }
+            });
+        });
+
+    } catch (err) {
+        console.error("Login Error:", err.message);
+        return res.status(500).json({
+            code: 500,
+            status: false,
+            message: "Internal Server Error",
+            data: null
+        });
+    }
+};
 
 const getAllUsers = async (req, res) => {
     try {
@@ -167,5 +249,7 @@ const getAllUsers = async (req, res) => {
 module.exports = {
     register: exports.register,
     login: exports.login,
+    loginAdmin: exports.loginAdmin,
+
     getAllUsers
 };
