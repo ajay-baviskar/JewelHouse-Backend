@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
             });
         }
 
-        user = new User({ name, email, mobile, password,role });
+        user = new User({ name, email, mobile, password, role });
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
@@ -41,7 +41,9 @@ exports.register = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                mobile: user.mobile
+                mobile: user.mobile,
+                role: user.role
+
             }
         });
 
