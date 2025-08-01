@@ -32,6 +32,9 @@ const placeOrder = async (req, res) => {
       orderStatus
     });
 
+    quotation.orderStatus = orderStatus;
+    await quotation.save();
+
     await order.save();
 
     res.status(201).json({ code: 201, status: true, message: 'Order placed successfully', order });
