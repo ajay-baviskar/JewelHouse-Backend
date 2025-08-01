@@ -16,7 +16,8 @@ const submitQuotation = async (req, res) => {
       clientDetails,
       goldDetails,       // this is a single object
       diamondDetails,    // this is an array
-      quotationSummary
+      quotationSummary,
+      orderStatus
     } = req.body;
 
     if (!userId || !clientDetails || !goldDetails || !quotationSummary) {
@@ -36,7 +37,8 @@ const submitQuotation = async (req, res) => {
       clientDetails,
       goldDetails,
       diamondDetails,
-      quotationSummary
+      quotationSummary,
+      orderStatus
     });
     console.log("Quotation saved:", newQuotation);
 
