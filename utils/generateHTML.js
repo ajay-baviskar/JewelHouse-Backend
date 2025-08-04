@@ -1,4 +1,4 @@
-function generateQuotationHTML({image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
+function generateQuotationHTML({ image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
   return `
     <html>
       <head>
@@ -150,6 +150,7 @@ function generateQuotationHTML({image_url, clientDetails, goldDetails, diamondDe
               <p><strong>Date:</strong> ${date}</p>
             </div>
           </header>
+          <div class="section">
 
        <div class="row">
   <div class="column">
@@ -159,11 +160,12 @@ function generateQuotationHTML({image_url, clientDetails, goldDetails, diamondDe
             <p><strong>Email:</strong> ${clientDetails.email}</p>
             <p><strong>Address:</strong> ${clientDetails.address}</p>
   </div>
-  <div class="column"">
-                  <img src="${image_url}" alt="Client Image" style="max-width:100px; height: 100px; border: 1px solid #ccc; border-radius: 6px;" />
+  <div class="column"" style = "padding-left: 120px;">
+<img src="${image_url}" alt="Client Image" style="max-width: 120px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
 
 
   </div>
+</div>
 </div>
 
 
