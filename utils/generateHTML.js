@@ -1,5 +1,5 @@
-function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
-    return `
+function generateQuotationHTML({image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
+  return `
     <html>
       <head>
         <style>
@@ -120,6 +120,24 @@ function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quo
             margin-bottom: 4px;
             line-height: 1.4;
           }
+            * {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 100px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
         </style>
       </head>
       <body>
@@ -133,13 +151,21 @@ function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quo
             </div>
           </header>
 
-          <div class="section">
-            <h3>Client Details</h3>
+       <div class="row">
+  <div class="column">
+      <h3>Client Details</h3>
             <p><strong>Name:</strong> ${clientDetails.name}</p>
             <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
             <p><strong>Email:</strong> ${clientDetails.email}</p>
             <p><strong>Address:</strong> ${clientDetails.address}</p>
-          </div>
+  </div>
+  <div class="column"">
+                  <img src="${image_url}" alt="Client Image" style="max-width: 120px; height: auto; border: 1px solid #ccc; border-radius: 6px;" />
+
+
+  </div>
+</div>
+
 
           <div class="section">
             <h3>Gold Details</h3>
