@@ -157,8 +157,7 @@ function generateQuotationHTML({ image_url, clientDetails, goldDetails, diamondD
       <h3>Client Details</h3>
             <p><strong>Name:</strong> ${clientDetails.name}</p>
             <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
-            <p><strong>Email:</strong> ${clientDetails.email}</p>
-            <p><strong>Address:</strong> ${clientDetails.address}</p>
+            <p><strong>City:</strong> ${clientDetails.city}</p>
   </div>
   <div class="column"" style = "padding-left: 120px;">
 <img src="${image_url}" alt="Client Image" style="max-width: 120px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
