@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    container_name: jewelhouse-backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://mongo:27017/jewelhouse
+      - JWT_SECRET=mysecretkey
+      - GOLD_API_KEY=goldapi-1jlsbksmct2oiz5-io
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: jewelhouse-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:

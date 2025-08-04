@@ -169,7 +169,7 @@ function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quo
             <table>
               <thead>
                 <tr>
-                  <th>Type</th><th>Shape</th><th>Size</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th><th>Total</th>
+                  <th>Type</th><th>Shape</th><th>Size</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th> <th>Rate Per cts</th><th>Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -182,6 +182,7 @@ function generateQuotationHTML({ clientDetails, goldDetails, diamondDetails, quo
                     <td>${d.clarity}</td>
                     <td>₹${d.ratePerCts}</td>
                     <td>${d.discount}%</td>
+                    <td>${d.ratePerCtsAfterDis}</td>
                     <td>₹${d.totalAmount}</td>
                   </tr>
                 `).join('')}
