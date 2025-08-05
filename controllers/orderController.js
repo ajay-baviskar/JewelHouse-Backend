@@ -228,9 +228,41 @@ const getAllOrders = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const total = await Order.countDocuments();
+    const {
+      name,
+      contactNumber,
+      pinCode,
+      email,
+      orderStatus
+    } = req.query;
 
-    const orders = await Order.find()
+    // Build filter object
+    const filter = {};
+
+    if (orderStatus) {
+      filter.orderStatus = orderStatus;
+    }
+
+    if (name || contactNumber || pinCode || email) {
+      filter.customerDetails = {};
+
+      if (name) {
+        filter.customerDetails.name = { $regex: name, $options: 'i' }; // case-insensitive
+      }
+      if (contactNumber) {
+        filter.customerDetails.contactNumber = { $regex: contactNumber, $options: 'i' };
+      }
+      if (pinCode) {
+        filter.customerDetails.pinCode = { $regex: pinCode, $options: 'i' };
+      }
+      if (email) {
+        filter.customerDetails.email = { $regex: email, $options: 'i' };
+      }
+    }
+
+    const total = await Order.countDocuments(filter);
+
+    const orders = await Order.find(filter)
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 }) // latest first
@@ -266,6 +298,7 @@ const getAllOrders = async (req, res) => {
     });
   }
 };
+
 
 
 module.exports = {
