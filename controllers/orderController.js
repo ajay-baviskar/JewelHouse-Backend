@@ -243,21 +243,20 @@ const getAllOrders = async (req, res) => {
       filter.orderStatus = orderStatus;
     }
 
-    if (name || contactNumber || pinCode || email) {
-      filter.customerDetails = {};
+    if (name) {
+      filter['customerDetails.name'] = { $regex: name, $options: 'i' };
+    }
 
-      if (name) {
-        filter.customerDetails.name = { $regex: name, $options: 'i' }; // case-insensitive
-      }
-      if (contactNumber) {
-        filter.customerDetails.contactNumber = { $regex: contactNumber, $options: 'i' };
-      }
-      if (pinCode) {
-        filter.customerDetails.pinCode = { $regex: pinCode, $options: 'i' };
-      }
-      if (email) {
-        filter.customerDetails.email = { $regex: email, $options: 'i' };
-      }
+    if (contactNumber) {
+      filter['customerDetails.contactNumber'] = { $regex: contactNumber, $options: 'i' };
+    }
+
+    if (email) {
+      filter['customerDetails.email'] = { $regex: email, $options: 'i' };
+    }
+
+    if (pinCode) {
+      filter['customerDetails.pinCode'] = { $regex: pinCode, $options: 'i' };
     }
 
     const total = await Order.countDocuments(filter);
@@ -265,7 +264,7 @@ const getAllOrders = async (req, res) => {
     const orders = await Order.find(filter)
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 }) // latest first
+      .sort({ createdAt: -1 }) // Latest orders first
       .populate('userId', 'name email')
       .populate('quotationId');
 
