@@ -170,17 +170,45 @@ const getQuotationByUserId = async (req, res) => {
 
 const getAllQuotations = async (req, res) => {
   try {
-    const quotations = await Quotation.find().sort({ createdAt: -1 });
-    return res.status(200).json({
+    const { page = 1, limit = 10, name, contactNumber, email, city } = req.query;
+
+    const filter = {};
+    if (name) filter['clientDetails.name'] = { $regex: name, $options: 'i' };
+    if (contactNumber) filter['clientDetails.contactNumber'] = { $regex: contactNumber, $options: 'i' };
+    if (email) filter['clientDetails.email'] = { $regex: email, $options: 'i' };
+    if (city) filter['clientDetails.city'] = { $regex: city, $options: 'i' };
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const total = await Quotation.countDocuments(filter);
+
+    const quotations = await Quotation.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const totalPages = Math.ceil(total / limit);
+
+    res.status(200).json({
       code: 200,
       success: true,
-      message: "Quotation get successfully",
-      data: quotations
+      message: "Quotations fetched successfully",
+      total,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      hasPreviousPage: parseInt(page) > 1,
+      hasNextPage: parseInt(page) < totalPages,
+      data: quotations,
     });
   } catch (error) {
-    res.status(500).json({ code: 500, status: false, message: 'Failed to fetch quotations', error: error.message });
+    res.status(500).json({
+      code: 500,
+      success: false,
+      message: 'Failed to fetch quotations',
+      error: error.message
+    });
   }
 };
+
 
 
 module.exports = {
