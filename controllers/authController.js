@@ -250,9 +250,9 @@ const getAllUsers = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     try {
-        const { userId, mobileNumber, newPassword } = req.body;
+        const { mobileNumber, newPassword } = req.body;
 
-        if (!userId || !mobileNumber || !newPassword) {
+        if ( !mobileNumber || !newPassword) {
             return res.status(400).json({
                 code: 400,
                 status: false,
@@ -261,7 +261,7 @@ const forgotPassword = async (req, res) => {
         }
 
         // Find the user by ID and mobile number
-        const user = await User.findOne({ _id: userId, mobile: mobileNumber });
+        const user = await User.findOne({ mobile: mobileNumber });
 
         if (!user) {
             return res.status(404).json({
