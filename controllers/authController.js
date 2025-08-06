@@ -250,17 +250,27 @@ const getAllUsers = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     try {
-        const { mobileNumber, newPassword } = req.body;
+        const { mobileNumber, newPassword, confirmPassword } = req.body;
 
-        if ( !mobileNumber || !newPassword) {
+        // Check required fields
+        if (!mobileNumber || !newPassword || !confirmPassword) {
             return res.status(400).json({
                 code: 400,
                 status: false,
-                message: 'userId, mobileNumber and newPassword are required'
+                message: 'mobileNumber, newPassword, and confirmPassword are required'
             });
         }
 
-        // Find the user by ID and mobile number
+        // Check if passwords match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                code: 400,
+                status: false,
+                message: 'New password and confirm password do not match'
+            });
+        }
+
+        // Find user by mobile number
         const user = await User.findOne({ mobile: mobileNumber });
 
         if (!user) {
@@ -274,7 +284,7 @@ const forgotPassword = async (req, res) => {
         // Hash the new password
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // Update the password
+        // Update password
         user.password = hashedPassword;
         await user.save();
 
@@ -293,6 +303,7 @@ const forgotPassword = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     register: exports.register,
