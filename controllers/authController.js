@@ -248,10 +248,56 @@ const getAllUsers = async (req, res) => {
 };
 
 
+const forgotPassword = async (req, res) => {
+    try {
+        const { userId, mobileNumber, newPassword } = req.body;
+
+        if (!userId || !mobileNumber || !newPassword) {
+            return res.status(400).json({
+                code: 400,
+                status: false,
+                message: 'userId, mobileNumber and newPassword are required'
+            });
+        }
+
+        // Find the user by ID and mobile number
+        const user = await User.findOne({ _id: userId, mobile: mobileNumber });
+
+        if (!user) {
+            return res.status(404).json({
+                code: 404,
+                status: false,
+                message: 'User not found or mobile number does not match'
+            });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the password
+        user.password = hashedPassword;
+        await user.save();
+
+        return res.status(200).json({
+            code: 200,
+            status: true,
+            message: 'Password updated successfully'
+        });
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        return res.status(500).json({
+            code: 500,
+            status: false,
+            message: 'Server error',
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     register: exports.register,
     login: exports.login,
     loginAdmin: exports.loginAdmin,
-
+    forgotPassword,
     getAllUsers
 };
