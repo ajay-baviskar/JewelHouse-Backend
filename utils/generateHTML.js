@@ -1,4 +1,4 @@
-function generateQuotationHTML({ image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
+function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date }) {
   return `
     <html>
       <head>
@@ -32,6 +32,7 @@ function generateQuotationHTML({ image_url, clientDetails, goldDetails, diamondD
             border-bottom: 2px solid #c2c2c2;
             padding-bottom: 6px;
             margin-bottom: 14px;
+               background-color: #0e4c35;
           }
 
  .logo {
@@ -143,13 +144,16 @@ function generateQuotationHTML({ image_url, clientDetails, goldDetails, diamondD
       <body>
         <div class="page-wrapper">
           <header>
-            <img src="http://62.72.33.172:4000/images/logo.png" alt="Company Logo" class="logo" />
+<img src="http://62.72.33.172:4000/images/1753696116487-logo3.png" alt="Client Image" style="height: 80px; display: block; margin: 0 auto;" />
 
-            <div class="title">
-              <h1>THE JEWEL HOUSE</h1>
-              <p><strong>Date:</strong> ${date}</p>
-            </div>
+           
           </header>
+                    <div class="header-info">
+    <span class="quotation-name" ><strong>Name:</strong> ${qt_id}</span>
+        <span class="quotation-date" style="padding-left: 500px; "><strong>Date:</strong> ${date}</span>
+
+  </div>
+<br>
           <div class="section">
 
        <div class="row">

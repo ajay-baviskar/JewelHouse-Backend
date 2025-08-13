@@ -40,10 +40,12 @@ const submitQuotation = async (req, res) => {
       quotationSummary,
       orderStatus
     });
-    console.log("Quotation saved:", newQuotation);
+    console.log("Quotation saved:", newQuotation._id);
+    const qt_id = newQuotation._id
 
     // Generate HTML from template
     const htmlContent = generateQuotationHTML({
+      qt_id,
       image_url,
       clientDetails,
       goldDetails,
