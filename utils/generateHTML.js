@@ -207,10 +207,11 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
                   <td>${goldDetails.goldColor}</td>
              
                   <td>${goldDetails.weight}</td>
-                  <td>₹${goldDetails.ratePerGram.toLocaleString('en-IN')}</td>
-                  <td>₹${goldDetails.totalGoldCost.toLocaleString('en-IN')}</td>
-                  <td>₹${goldDetails.labourCost.toLocaleString('en-IN')}</td>
-                  <td>₹${goldDetails.totalLabourPrice.toLocaleString('en-IN')}</td>
+                 <td>₹${Math.ceil(goldDetails.ratePerGram)}</td>
+                <td>₹${Math.ceil(goldDetails.totalGoldCost)}</td>
+                <td>₹${Math.ceil(goldDetails.labourCost)}</td>
+                <td>₹${Math.ceil(goldDetails.totalLabourPrice)}</td>
+
                 </tr>
               </tbody>
             </table>
@@ -232,10 +233,10 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
                     <td>${d.size}</td>
                     <td>${d.color}</td>
                     <td>${d.clarity}</td>
-                    <td>₹${d.ratePerCts.toLocaleString('en-IN')}</td>
+<td>₹${Math.ceil(d.ratePerCts)}</td>
                     <td>${d.discount}%</td>
-                    <td>${d.ratePerCtsAfterDis.toLocaleString('en-IN')}</td>
-                    <td>₹${d.totalAmount.toLocaleString('en-IN')}</td>
+                    <td>₹${Math.ceil(d.ratePerCtsAfterDis)}</td>
+<td>₹${Math.ceil(d.totalAmount)}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -252,11 +253,11 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               </thead>
               <tbody>
                 <tr>
-                  <td>₹${quotationSummary.goldCost.toLocaleString('en-IN')}</td>
-                  <td>₹${quotationSummary.labourCost.toLocaleString('en-IN')}</td>
-                  <td>₹${quotationSummary.diamondCost.toLocaleString('en-IN')}</td>
-                  <td>${quotationSummary.gst.toLocaleString('en-IN')}</td>
-                  <td class="total">₹${quotationSummary.total.toLocaleString('en-IN')}</td>
+                  <td>₹${quotationSummary.goldCost}</td>
+                  <td>₹${quotationSummary.labourCost}</td>
+                  <td>₹${quotationSummary.diamondCost}</td>
+                  <td>${quotationSummary.gst}</td>
+                  <td class="total">₹${quotationSummary.total}</td>
                 </tr>
               </tbody>
             </table>
