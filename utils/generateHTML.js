@@ -73,7 +73,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           th, td {
             border: 1px solid #ccc;
-            padding: 5px;
+            padding: 3px;
             font-size: 7px;
             text-align: left;
           }
@@ -84,8 +84,8 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           }
 
           .section {
-            margin-bottom: 12px;
-            padding: 5px;
+            margin-bottom: 10px;
+            padding: 3px;
             background: #f9fdfb;
             border: 1px solid #d8eae1;
             border-radius: 4px;
@@ -98,15 +98,15 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           }
 
           .note {
-            margin-top: 14px;
-            padding: 10px;
+            margin-top: 12px;
+            padding: 8px;
             border: 1px dashed #0e4c35;
             background: #f5fffa;
             border-radius: 4px;
           }
 
           .note h3 {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-size: 7px;
             color: #0e4c35;
           }
@@ -183,7 +183,10 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
            
   </div>
   <div class="column"" style = "padding-left: 120px;">
-<img src="${image_url}" alt="Client Image" style="max-width: 150px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
+  <img src="${image_url}" 
+     alt="Client Image" 
+     style="max-width: 100%; height: 80px; border: 1px solid #ccc; border-radius: 6px; display: block; object-fit: contain;" />
+
 <p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
 
 
