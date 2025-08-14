@@ -46,7 +46,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           h1 {
             margin: 0;
-            font-size: 22px;
+            font-size: 20px;
             color: #0e4c35;
           }
 
@@ -55,7 +55,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             color: #1a3c34;
             border-left: 4px solid #0e4c35;
             padding-left: 8px;
-            font-size: 13px;
+            font-size: 11px;
             background: #f1f7f4;
           }
 
@@ -74,7 +74,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           th, td {
             border: 1px solid #ccc;
             padding: 5px;
-            font-size: 10px;
+            font-size: 9px;
             text-align: left;
           }
 
@@ -94,7 +94,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           .total {
             font-weight: bold;
             color: #1e8449;
-            font-size: 12px;
+            font-size: 9px;
           }
 
           .note {
@@ -107,14 +107,14 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           .note h3 {
             margin-bottom: 6px;
-            font-size: 12px;
+            font-size: 9px;
             color: #0e4c35;
           }
 
           .note ul {
             padding-left: 18px;
             margin: 0;
-            font-size: 10px;
+            font-size: 9px;
           }
 
           .note li {
@@ -149,18 +149,18 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
            
           </header>
 <div style="margin-top: 8px; margin-bottom: 12px;">
-  <table style="border-collapse: collapse; font-size: 11px;">
+  <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit;">
     <tr>
-      <td>
+      <td style = "border: none; color: inherit;">
         <strong>Quotation ID:</strong> ${qt_id}
       </td>
-      <td style="text-align: right;">
+      <td style="text-align: right;border: none; color: inherit;">
         ${(() => {
           const [year, month, day] = date.split('-');
           return `
             <table style="display: inline-table; border-collapse: collapse; font-size: 10px;">
               <tr>
-<td> <strong>Date: </strong></td>
+<td style="text-align: right;border: none; color: inherit;"> <strong>Date: </strong></td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${day}</td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${month}</td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${year}</td>
