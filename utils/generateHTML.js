@@ -85,7 +85,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           .section {
             margin-bottom: 12px;
-            padding: 8px;
+            padding: 5px;
             background: #f9fdfb;
             border: 1px solid #d8eae1;
             border-radius: 4px;
