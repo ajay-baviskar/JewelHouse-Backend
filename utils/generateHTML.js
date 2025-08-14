@@ -31,7 +31,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             align-items: center;
             border-bottom: 2px solid #c2c2c2;
             padding-bottom: 6px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
                background-color: #0e4c35;
           }
 
@@ -74,7 +74,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           th, td {
             border: 1px solid #ccc;
             padding: 5px;
-            font-size: 9px;
+            font-size: 7px;
             text-align: left;
           }
 
@@ -94,7 +94,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           .total {
             font-weight: bold;
             color: #1e8449;
-            font-size: 9px;
+            font-size: 7px;
           }
 
           .note {
@@ -107,7 +107,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           .note h3 {
             margin-bottom: 6px;
-            font-size: 9px;
+            font-size: 7px;
             color: #0e4c35;
           }
 
