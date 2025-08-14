@@ -151,16 +151,16 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <div style="margin-top: 8px; margin-bottom: 12px;">
   <table style="border-collapse: collapse; font-size: 11px;">
     <tr>
-      <td style="padding: 4px; ">
+      <td>
         <strong>Quotation ID:</strong> ${qt_id}
       </td>
       <td style="text-align: right;">
-        <strong>Date:</strong>
         ${(() => {
           const [year, month, day] = date.split('-');
           return `
             <table style="display: inline-table; border-collapse: collapse; font-size: 10px;">
               <tr>
+<td> <strong>Date: </strong></td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${day}</td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${month}</td>
                 <td style="border: 1px solid #0e4c35;   text-align: center;">${year}</td>
