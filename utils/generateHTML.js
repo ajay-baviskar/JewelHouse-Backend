@@ -144,7 +144,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
       <body>
         <div class="page-wrapper">
           <header>
-<img src="http://62.72.33.172:4000/images/1753696116487-logo3.png" alt="Client Image" style="height: 80px; display: block; margin: 0 auto;" />
+<img src="http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png" alt="Client Image" style="height: 80px; display: block; margin: 0 auto;" />
 
            
           </header>
@@ -179,13 +179,13 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
       <h3>Client Details</h3>
             <p><strong>Name:</strong> ${clientDetails.name}</p>
             <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
-            <p><strong>City:</strong> ${clientDetails.city}</p>
-            <p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
-
+            <p><strong>Category:</strong> ${goldDetails .category}</p>
            
   </div>
   <div class="column"" style = "padding-left: 120px;">
-<img src="${image_url}" alt="Client Image" style="max-width: 120px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
+<img src="${image_url}" alt="Client Image" style="max-width: 150px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
+<p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
+
 
 
   </div>
@@ -216,6 +216,33 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               </tbody>
             </table>
           </div>
+
+
+
+
+
+
+         <div class="section">
+            <h3>Labour Estimated</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Gold Weight</th><th>Rate/g</th><th>Labour Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                      <td>${goldDetails.weight}</td>
+                 <td>₹${Math.ceil(goldDetails.ratePerGram)}</td>
+                <td>₹${Math.ceil(goldDetails.totalLabourPrice)}</td
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
 
           <div class="section">
             <h3>Diamond Estimated</h3>
@@ -262,6 +289,13 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               </tbody>
             </table>
           </div>
+
+
+ 
+
+
+
+
 
           <div class="note">
             <h3>Notes</h3>
