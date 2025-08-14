@@ -148,12 +148,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
            
           </header>
-                    <div class="header-info">
-    <span class="quotation-name" ><strong>Name:</strong> ${qt_id}</span>
-        <span class="quotation-date" style="padding-left: 500px; "><strong>Date:</strong> ${date}</span>
 
-  </div>
-<br>
           <div class="section">
 
        <div class="row">
