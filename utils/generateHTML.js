@@ -180,6 +180,9 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             <p><strong>Name:</strong> ${clientDetails.name}</p>
             <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
             <p><strong>City:</strong> ${clientDetails.city}</p>
+            <p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
+
+           
   </div>
   <div class="column"" style = "padding-left: 120px;">
 <img src="${image_url}" alt="Client Image" style="max-width: 120px; height: 80px; border: 1px solid #ccc; border-radius: 6px;" />
@@ -191,18 +194,18 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
           <div class="section">
-            <h3>Gold Details</h3>
+            <h3>Gold Estimated</h3>
             <table>
               <thead>
                 <tr>
-                  <th>Purity</th><th>Color</th><th>Size</th><th>Weight</th><th>Rate/gm</th><th>Gold Cost</th><th>Labour</th><th>Total Labour</th>
+                  <th>Purity</th><th>Color</th><th>Weight</th><th>Rate/gm</th><th>Gold Cost</th><th>Labour</th><th>Total Labour</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>${goldDetails.goldPurity}</td>
                   <td>${goldDetails.goldColor}</td>
-                  <td>${goldDetails.jewelrySize}</td>
+             
                   <td>${goldDetails.weight}</td>
                   <td>₹${goldDetails.ratePerGram.toLocaleString('en-IN')}</td>
                   <td>₹${goldDetails.totalGoldCost.toLocaleString('en-IN')}</td>
@@ -214,11 +217,11 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           </div>
 
           <div class="section">
-            <h3>Diamond Details</h3>
+            <h3>Diamond Estimated</h3>
             <table>
               <thead>
                 <tr>
-                  <th>Type</th><th>Shape</th><th>Size</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th> <th>Rate Per cts</th><th>Total</th>
+                  <th>Type</th><th>Shape</th><th>Size</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th> <th>Offer</th><th>Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -240,7 +243,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           </div>
 
           <div class="section">
-            <h3>Quotation Summary</h3>
+            <h3>Quotation Summary Estimated</h3>
             <table>
               <thead>
                 <tr>
