@@ -10,6 +10,7 @@ const clientDetailsSchema = new mongoose.Schema({
 }, { _id: false });
 
 const goldDetailsSchema = new mongoose.Schema({
+  category: { type: String },
   goldPurity: { type: String },
   goldColor: { type: String },
   jewelrySize: { type: String },
