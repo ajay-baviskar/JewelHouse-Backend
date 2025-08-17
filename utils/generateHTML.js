@@ -3,7 +3,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     <html>
       <head>
         <style>
-          @page {
+           @page {
             size: letter;
             margin: 0;
           }
@@ -32,13 +32,12 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             border-bottom: 2px solid #c2c2c2;
             padding-bottom: 6px;
             margin-bottom: 12px;
-               background-color: #0e4c35;
+            background-color: #0e4c35;
           }
 
- .logo {
+          .logo {
             height: 45px;
           }
-
 
           .title {
             text-align: right;
@@ -121,24 +120,54 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             margin-bottom: 4px;
             line-height: 1.4;
           }
-            * {
-  box-sizing: border-box;
-}
 
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 50%;
-  padding: 10px;
-  height: 100px; /* Should be removed. Only for demonstration */
-}
+          * { box-sizing: border-box; }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+          .column { float: left; width: 50%; padding: 10px; }
+          .row:after { content: ""; display: table; clear: both; }
+
+          /* PAGE BREAK for second page */
+          .page-break { page-break-before: always; }
+
+          /* Second page styles */
+          .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e8449;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          .subtitle {
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          .step {
+            margin: 28px 0;
+            padding: 10px 18px 10px 22px;
+            border-left: 5px solid #0e4c35;
+            background: #f6fbf9;
+            border-radius: 6px;
+          }
+          .step-title {
+            font-size: 19px;
+            color: #0e4c35;
+            font-weight: bold;
+          }
+          .step-description {
+            font-size: 15px;
+            color: #444;
+          }
+          .step-number {
+            font-size: 20px;
+            background: #1e8449;
+            color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            padding: 0 13px;
+            margin-right: 14px;
+            font-weight: bold;
+          }
         </style>
       </head>
       <body>
@@ -308,6 +337,54 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               <li>Gold weight and making charges will be charged <strong>based on actual usage</strong>, not the estimate above.</li>
               <li><strong>Lifetime backup & exchange</strong> applicable: Get <strong>100% exchange value</strong> for gold and <strong>80% exchange value</strong> for diamonds as per prevailing market rates.</li>
             </ul>
+          </div>
+        </div>
+
+
+          <div class="page-break"></div>
+        <div style="padding: 30px 40px;">
+          <div class="main-title">SHOP. SHINE. SLAY.</div>
+          <div class="subtitle">Make purchase in - <strong>5 easy steps</strong> No pressure. No confusion. Just sparkle</div>
+
+          <div class="step">
+            <span class="step-number">1</span>
+            <span class="step-title">You Reach Out to Us</span>
+            <div class="step-description">
+              Looking for something elegant, bold, or uniquely you? Slide into our DMs, <strong>WhatsApp, Instagram, or book a call.</strong> <br>
+              Tell us your vision—we’ll craft a tailored estimate piece that fits your style and your budget.
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">2</span>
+            <span class="step-title">CAD Design</span>
+            <div class="step-description">
+              Once you love the estimate, our designers create a <strong>3D CAD design of your piece.</strong> You approve it, or request tweaks <strong>nothing moves ahead until you’re 100% happy.</strong>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">3</span>
+            <span class="step-title">We Craft Your Jewellery</span>
+            <div class="step-description">
+              Once you approve the design and <strong>pay the 25% advance</strong>, our expert artisans begin crafting your jewellery. <br>We’ll send you photos of the final piece to ensure it’s perfect before shipping.
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">4</span>
+            <span class="step-title">Easy Payment</span>
+            <div class="step-description">
+              Before we ship, you’ll receive detailed photos to preview. Once you’re happy, <strong>we share the final bill and a secure payment link.</strong> Your piece is then prepped and packed with utmost care.
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-number">5</span>
+            <span class="step-title">Secured Delivery</span>
+            <div class="step-description">
+              <strong>Every diamond is certified</strong> for complete transparency. <br><strong>Once ready, your jewellery is delivered to your doorstep</strong> fully insured for total peace of mind.
+            </div>
           </div>
         </div>
       </body>
