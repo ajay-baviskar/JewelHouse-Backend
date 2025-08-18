@@ -360,15 +360,16 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           <div class="main-title">SHOP. SHINE. SLAY.</div>
           <div class="subtitle">Make purchase in - <strong>5 easy steps</strong> No pressure. No confusion. Just sparkle</div>
 
-        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+ <!-- Step 1 -->
+<table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <!-- Step Icon -->
-    <td style="width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Step Icon" style="width:50px; height:50px;" />
+    <td style="width:60px; vertical-align:top; border:none;">
+      <img src="http://62.72.33.172:4000/images/1755502214773-step1png.png" alt="Step Icon" style="width:70px; height:70px;" />
     </td>
 
     <!-- Step Content -->
-    <td style="vertical-align:top; padding-left:10px;">
+    <td style="vertical-align:top; padding-left:10px; border:none;">
       <div class="step-content">
         <span class="step-number" style="font-weight:bold; font-size:18px; margin-right:8px;">1</span>
         <span class="step-title" style="font-weight:bold; font-size:16px;">You Reach Out to Us</span>
@@ -382,15 +383,14 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   </tr>
 </table>
 
-
 <!-- Step 2 -->
-<table>
+<table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
-    <td>
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="CAD Design Icon" style="width:50px; height:50px;" />
+    <td style="border:none; width:60px; vertical-align:top;">
+      <img src="http://62.72.33.172:4000/images/1755502683990-step2.png" alt="CAD Design Icon" style="width:70px; height:70px;" />
     </td>
-    <td>
-      <div class="step-content" style="margin-inline:10px;">
+    <td style="border:none; vertical-align:top; padding-left:10px;">
+      <div class="step-content">
         <span class="step-number">2</span>
         <span class="step-title">CAD Design</span>
         <div class="step-description">
@@ -404,13 +404,13 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 </table>
 
 <!-- Step 3 -->
-<table>
+<table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
-    <td>
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:50px; height:50px;" />
+    <td style="border:none; width:60px; vertical-align:top;">
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:70px; height:70px;" />
     </td>
-    <td>
-      <div class="step-content" style="margin-inline:10px;">
+    <td style="border:none; vertical-align:top; padding-left:10px;">
+      <div class="step-content">
         <span class="step-number">3</span>
         <span class="step-title">We Craft Your Jewellery</span>
         <div class="step-description">
@@ -423,39 +423,34 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   </tr>
 </table>
 
-
-
- <table>
-    <tr>
-      <td>
-        <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:50px; heigth:50px;" />
-      </td>
-      <td>
-        <div class="step-content" style="margin-inline:10px;">
-          <span class="step-number">4</span>
-          <span class="step-title">Easy Payment</span>
-          <div class="step-description">
-            Before we ship, you’ll receive detailed photos to preview. Once you’re happy,
-            <strong>we share the final bill and a secure payment link.</strong>
-            Your piece is then prepped and packed with utmost care.
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    </div>
-
-
-
- 
-
-       <table>
+<!-- Step 4 -->
+<table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
-    <td>
-      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:50px; height:50px;" />
+    <td style="border:none; width:60px; vertical-align:top;">
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:70px; height:70px;" />
     </td>
-    <td>
-      <div class="step-content" style="margin-inline:10px;">
+    <td style="border:none; vertical-align:top; padding-left:10px;">
+      <div class="step-content">
+        <span class="step-number">4</span>
+        <span class="step-title">Easy Payment</span>
+        <div class="step-description">
+          Before we ship, you’ll receive detailed photos to preview. Once you’re happy,
+          <strong>we share the final bill and a secure payment link.</strong>
+          Your piece is then prepped and packed with utmost care.
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- Step 5 -->
+<table style="border-collapse: collapse; border: none; width:100%;">
+  <tr>
+    <td style="border:none; width:60px; vertical-align:top;">
+      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:70px; height:70px;" />
+    </td>
+    <td style="border:none; vertical-align:top; padding-left:10px;">
+      <div class="step-content">
         <span class="step-number">5</span>
         <span class="step-title">Secured Delivery</span>
         <div class="step-description">
@@ -466,6 +461,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+
 
         </div>
       </body>
