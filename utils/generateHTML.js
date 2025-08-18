@@ -130,47 +130,39 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           .page-break { page-break-before: always; }
 
           /* Second page styles */
-          /* Second page styles */
-.main-title {
-  font-size: 14px; /* smaller than 18px */
-  font-weight: bold;
-  color: #1e8449;
-  text-align: center;
-  margin-bottom: 8px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.subtitle {
-  font-size: 11px; /* was 14px */
-  text-align: center;
-  margin-bottom: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+        <style>
+  /* Step Section Styling */
+  .step-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 12px;
+  }
 
-.step-number {
-  font-size: 11px; /* was 14px */
-  background: #1e8449;
-  color: #fff;
-  border-radius: 50%;
-  display: inline-block;
-  padding: 2px 8px;
-  margin-right: 10px;
-  font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  .step-number {
+    font-size: 13px;
+    background: #1e8449;
+    color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 4px 9px;
+    margin-right: 8px;
+    font-weight: bold;
+    vertical-align: middle;
+  }
 
-.step-title {
-  font-size: 11px; /* was 14px */
-  color: #0e4c35;
-  font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  .step-title {
+    font-size: 13px;
+    color: #0e4c35;
+    font-weight: bold;
+    vertical-align: middle;
+  }
 
-.step-description {
-  font-size: 10px; /* was 14px */
-  color: #444;
-  line-height: 1.4;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  .step-description {
+    font-size: 11px;
+    color: #444;
+    line-height: 1.5;
+    margin-top: 5px;
+  }
+</style>
 
         </style>
       </head>
@@ -353,19 +345,17 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           <div class="subtitle">Make purchase in - <strong>5 easy steps</strong> No pressure. No confusion. Just sparkle</div>
 
  <!-- Step 1 -->
+<!-- Step 1 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
-    <!-- Step Icon -->
     <td style="width:60px; vertical-align:top; border:none;">
       <img src="http://62.72.33.172:4000/images/1755502214773-step1png.png" alt="Step Icon" style="width:100px; height:100px;" />
     </td>
-
-    <!-- Step Content -->
     <td style="vertical-align:top; padding-left:10px; border:none;">
       <div class="step-content">
-        <span class="step-number" style="font-weight:bold; font-size:14px; margin-right:8px;">1</span>
-        <span class="step-title" style="font-weight:bold; font-size:14px;">You Reach Out to Us</span>
-        <div class="step-description" style="margin-top:5px; font-size:13px; line-height:1.5;">
+        <span class="step-number">1</span>
+        <span class="step-title">You Reach Out to Us</span>
+        <div class="step-description">
           Looking for something elegant, bold, or uniquely you? Slide into our DMs, 
           <strong>WhatsApp, Instagram, or book a call.</strong><br>
           Tell us your vision—we’ll craft a tailored estimate piece that fits your style and your budget.
@@ -374,6 +364,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+
 
 <!-- Step 2 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
