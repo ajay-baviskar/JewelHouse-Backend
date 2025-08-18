@@ -365,7 +365,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   <tr>
     <!-- Step Icon -->
     <td style="width:60px; vertical-align:top; border:none;">
-      <img src="http://62.72.33.172:4000/images/1755502214773-step1png.png" alt="Step Icon" style="width:70px; height:70px;" />
+      <img src="http://62.72.33.172:4000/images/1755502214773-step1png.png" alt="Step Icon" style="width:100px; height:100px;" />
     </td>
 
     <!-- Step Content -->
@@ -387,7 +387,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="http://62.72.33.172:4000/images/1755502683990-step2.png" alt="CAD Design Icon" style="width:70px; height:70px;" />
+      <img src="http://62.72.33.172:4000/images/1755502683990-step2.png" alt="CAD Design Icon" style="width:100px; height:100px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
