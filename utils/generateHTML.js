@@ -406,7 +406,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:70px;" />
+      <img src="http://62.72.33.172:4000/images/1755509154495-step3png.png" alt="Craft Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -427,7 +427,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:70px;" />
+      <img src="http://62.72.33.172:4000/images/1755509228151-step4png.png" alt="Payment Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -448,7 +448,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:70px;" />
+      <img src="http://62.72.33.172:4000/images/1755509275284-step5png.png" alt="Delivery Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -462,9 +462,8 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
-<br>
-<br>
-<br>
+
+
 
 </div>
         </div>
