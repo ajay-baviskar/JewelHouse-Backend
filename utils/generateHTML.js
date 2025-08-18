@@ -360,55 +360,113 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           <div class="main-title">SHOP. SHINE. SLAY.</div>
           <div class="subtitle">Make purchase in - <strong>5 easy steps</strong> No pressure. No confusion. Just sparkle</div>
 
-          <div class="step">
-            <span class="step-number">1</span>
-            <span class="step-title">You Reach Out to Us</span>
-            <div class="step-description">
-              Looking for something elegant, bold, or uniquely you? Slide into our DMs, <strong>WhatsApp, Instagram, or book a call.</strong> <br>
-              Tell us your vision—we’ll craft a tailored estimate piece that fits your style and your budget.
-            </div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+  <tr>
+    <!-- Step Icon -->
+    <td style="width:60px; vertical-align:top;">
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Step Icon" style="width:50px; height:50px;" />
+    </td>
+
+    <!-- Step Content -->
+    <td style="vertical-align:top; padding-left:10px;">
+      <div class="step-content">
+        <span class="step-number" style="font-weight:bold; font-size:18px; margin-right:8px;">1</span>
+        <span class="step-title" style="font-weight:bold; font-size:16px;">You Reach Out to Us</span>
+        <div class="step-description" style="margin-top:5px; font-size:14px; line-height:1.5;">
+          Looking for something elegant, bold, or uniquely you? Slide into our DMs, 
+          <strong>WhatsApp, Instagram, or book a call.</strong><br>
+          Tell us your vision—we’ll craft a tailored estimate piece that fits your style and your budget.
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+<!-- Step 2 -->
+<table>
+  <tr>
+    <td>
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="CAD Design Icon" style="width:50px; height:50px;" />
+    </td>
+    <td>
+      <div class="step-content" style="margin-inline:10px;">
+        <span class="step-number">2</span>
+        <span class="step-title">CAD Design</span>
+        <div class="step-description">
+          Once you love the estimate, our designers create a 
+          <strong>3D CAD design of your piece.</strong> You approve it, or request tweaks — 
+          <strong>nothing moves ahead until you’re 100% happy.</strong>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- Step 3 -->
+<table>
+  <tr>
+    <td>
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:50px; height:50px;" />
+    </td>
+    <td>
+      <div class="step-content" style="margin-inline:10px;">
+        <span class="step-number">3</span>
+        <span class="step-title">We Craft Your Jewellery</span>
+        <div class="step-description">
+          Once you approve the design and <strong>pay the 25% advance</strong>, 
+          our expert artisans begin crafting your jewellery. <br>
+          We’ll send you photos of the final piece to ensure it’s perfect before shipping.
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+
+ <table>
+    <tr>
+      <td>
+        <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:50px; heigth:50px;" />
+      </td>
+      <td>
+        <div class="step-content" style="margin-inline:10px;">
+          <span class="step-number">4</span>
+          <span class="step-title">Easy Payment</span>
+          <div class="step-description">
+            Before we ship, you’ll receive detailed photos to preview. Once you’re happy,
+            <strong>we share the final bill and a secure payment link.</strong>
+            Your piece is then prepped and packed with utmost care.
           </div>
+        </div>
+      </td>
+    </tr>
 
-          <div class="step">
-            <span class="step-number">2</span>
-            <span class="step-title">CAD Design</span>
-            <div class="step-description">
-              Once you love the estimate, our designers create a <strong>3D CAD design of your piece.</strong> You approve it, or request tweaks <strong>nothing moves ahead until you’re 100% happy.</strong>
-            </div>
-          </div>
-
-          <div class="step">
-            <span class="step-number">3</span>
-            <span class="step-title">We Craft Your Jewellery</span>
-            <div class="step-description">
-              Once you approve the design and <strong>pay the 25% advance</strong>, our expert artisans begin crafting your jewellery. <br>We’ll send you photos of the final piece to ensure it’s perfect before shipping.
-            </div>
-          </div>
-
-
-<div class="step">
-  <img src="http://62.72.33.172:4000/images/1753696116487-logo3.png" alt="Payment Icon" />
-
-  <div class="step-content">
-    <span class="step-number">4</span>
-    <span class="step-title">Easy Payment</span>
-    <div class="step-description">
-      Before we ship, you’ll receive detailed photos to preview. Once you’re happy, 
-      <strong>we share the final bill and a secure payment link.</strong> 
-      Your piece is then prepped and packed with utmost care.
     </div>
-  </div>
-</div>
+
+
 
  
 
-          <div class="step">
-            <span class="step-number">5</span>
-            <span class="step-title">Secured Delivery</span>
-            <div class="step-description">
-              <strong>Every diamond is certified</strong> for complete transparency. <br><strong>Once ready, your jewellery is delivered to your doorstep</strong> fully insured for total peace of mind.
-            </div>
-          </div>
+       <table>
+  <tr>
+    <td>
+      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:50px; height:50px;" />
+    </td>
+    <td>
+      <div class="step-content" style="margin-inline:10px;">
+        <span class="step-number">5</span>
+        <span class="step-title">Secured Delivery</span>
+        <div class="step-description">
+          <strong>Every diamond is certified</strong> for complete transparency. <br>
+          <strong>Once ready, your jewellery is delivered to your doorstep</strong> fully insured for total peace of mind.
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
         </div>
       </body>
     </html>
