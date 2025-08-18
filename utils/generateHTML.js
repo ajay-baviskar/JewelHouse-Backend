@@ -331,16 +331,17 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
 
-          <div class="note">
-            <h3>Notes</h3>
-            <ul>
-              <li><strong>All our diamonds</strong> are earth-friendly lab-grown diamonds.</li>
-              <li>This design is specially crafted for you. There is a possibility of <strong>15% variance</strong> (more or less) in gold and diamond usage compared to the estimate above.</li>
-              <li>Gold weight and making charges will be charged <strong>based on actual usage</strong>, not the estimate above.</li>
-              <li><strong>Lifetime backup & exchange</strong> applicable: Get <strong>100% exchange value</strong> for gold and <strong>80% exchange value</strong> for diamonds as per prevailing market rates.</li>
-            </ul>
-          </div>
-        </div>
+       <div class="note">
+  <h3>Notes</h3>
+  <ul>
+    <li><strong>All our diamonds</strong> are earth friendly <strong>CVD (Type II a)</strong> lab grown diamonds.</li>
+    <li>This design is specially crafted for you. There is a possibility of <strong>5% variance</strong> (more or less) in gold and diamond usage compared to the estimate above.</li>
+    <li><strong>Gold weight</strong> and <strong>making charges</strong> will be charged based on actual usage.</li>
+    <li>We offer <strong>85% buyback</strong>, <strong>100% exchange</strong> and <strong>Lifetime guarantee</strong> on diamonds purchased from us.</li>
+    <li>To book your order you need to pay <strong>25% advance</strong> against the estimated value above and the <strong>balance payment</strong> on dispatch.</li>
+  </ul>
+</div>
+
 
 
           <div class="page-break"></div>
