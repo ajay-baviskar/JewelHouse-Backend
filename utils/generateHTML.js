@@ -130,7 +130,14 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           .page-break { page-break-before: always; }
 
           /* Second page styles */
-        <style>
+        .main-title {
+  font-size: 16px; /* smaller than 18px */
+  font-weight: bold;
+  color: #1e8449;
+  text-align: center;
+  margin-bottom: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
   /* Step Section Styling */
   .step-content {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
