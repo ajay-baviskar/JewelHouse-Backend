@@ -22,7 +22,7 @@ const goldDetailsSchema = new mongoose.Schema({
 }, { _id: false });
 
 const diamondDetailSchema = new mongoose.Schema({
-  type: { type: String, enum: ['center', 'side'] },
+  type: { type: String, enum: ['center', 'studded'] },
   shape: { type: String },
   size: { type: Number },
   color: { type: String },

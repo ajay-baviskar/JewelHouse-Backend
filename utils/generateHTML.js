@@ -194,19 +194,8 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
         <strong>Quotation ID:</strong> ${qt_id}
       </td>
       <td style="text-align: right;border: none; color: inherit;">
-        ${(() => {
-          const [year, month, day] = date.split('-');
-          return `
-            <table style="display: inline-table; border-collapse: collapse; font-size: 10px;">
-              <tr>
-<td style="text-align: right;border: none; color: inherit;"> <strong>Date: </strong></td>
-                <td style="border: 1px solid #0e4c35;   text-align: center;">${day}</td>
-                <td style="border: 1px solid #0e4c35;   text-align: center;">${month}</td>
-                <td style="border: 1px solid #0e4c35;   text-align: center;">${year}</td>
-              </tr>
-            </table>
-          `;
-        })()}
+                <strong>Date:</strong> ${date}
+
       </td>
     </tr>
   </table>
@@ -218,6 +207,8 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
       <h3>Client Details</h3>
             <p><strong>Name:</strong> ${clientDetails.name}</p>
             <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
+                        <p><strong>City:</strong> ${clientDetails.city}</p>
+
             <p><strong>Category:</strong> ${goldDetails .category}</p>
            
   </div>
@@ -269,13 +260,13 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             <table>
               <thead>
                 <tr>
-                  <th>Gold Weight</th><th>Rate/g</th><th>Labour Total</th>
+                  <th>Gold Weight</th><th>Labour Cost</th><th>Labour Total</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                       <td>${goldDetails.weight}</td>
-                 <td>₹${Math.ceil(goldDetails.ratePerGram)}</td>
+                <td>₹${Math.ceil(goldDetails.labourCost)}</td>
                 <td>₹${Math.ceil(goldDetails.totalLabourPrice)}</td
                 </tr>
               </tbody>
