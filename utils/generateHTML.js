@@ -231,7 +231,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             <table>
               <thead>
                 <tr>
-                  <th>Purity</th><th>Color</th><th>Weight</th><th>Rate/gm</th><th>Gold Cost</th><th>Labour</th><th>Total Labour</th>
+                  <th>Purity</th><th>Color</th><th>Weight</th><th>Rate/gm</th><th>Gold Cost</th>
                 </tr>
               </thead>
               <tbody>
@@ -242,8 +242,6 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
                   <td>${goldDetails.weight}</td>
                  <td>₹${Math.ceil(goldDetails.ratePerGram)}</td>
                 <td>₹${Math.ceil(goldDetails.totalGoldCost)}</td>
-                <td>₹${Math.ceil(goldDetails.labourCost)}</td>
-                <td>₹${Math.ceil(goldDetails.totalLabourPrice)}</td>
 
                 </tr>
               </tbody>
