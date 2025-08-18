@@ -131,14 +131,14 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
           /* Second page styles */
           .main-title {
-            font-size: 32px;
+            font-size: 16px;
             font-weight: bold;
             color: #1e8449;
             text-align: center;
             margin-bottom: 10px;
           }
           .subtitle {
-            font-size: 15px;
+            font-size: 14px;
             text-align: center;
             margin-bottom: 20px;
           }
@@ -164,16 +164,16 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
   
           .step-title {
-            font-size: 19px;
+            font-size: 16px;
             color: #0e4c35;
             font-weight: bold;
           }
           .step-description {
-            font-size: 15px;
+            font-size: 14px;
             color: #444;
           }
           .step-number {
-            font-size: 20px;
+            font-size: 16px;
             background: #1e8449;
             color: #fff;
             border-radius: 50%;
