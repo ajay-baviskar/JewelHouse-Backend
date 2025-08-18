@@ -130,58 +130,48 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           .page-break { page-break-before: always; }
 
           /* Second page styles */
-          .main-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1e8449;
-            text-align: center;
-            margin-bottom: 10px;
-          }
-          .subtitle {
-            font-size: 14px;
-            text-align: center;
-            margin-bottom: 20px;
-          }
-
-          .step {
-  display: flex;
-  align-items: center; /* align items in middle */
-  gap: 15px;           /* spacing between image and text */
-  margin-bottom: 20px; /* spacing between steps */
+          /* Second page styles */
+.main-title {
+  font-size: 14px; /* smaller than 18px */
+  font-weight: bold;
+  color: #1e8449;
+  text-align: center;
+  margin-bottom: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.subtitle {
+  font-size: 11px; /* was 14px */
+  text-align: center;
+  margin-bottom: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.step img {
-  width: 45px;   /* adjust size */
-  height: 45px;
-  object-fit: contain;
-  flex-shrink: 0; /* prevent image from shrinking */
+.step-number {
+  font-size: 11px; /* was 14px */
+  background: #1e8449;
+  color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-right: 10px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.step-content {
-  display: flex;
-  flex-direction: column;
+.step-title {
+  font-size: 11px; /* was 14px */
+  color: #0e4c35;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-  
-          .step-title {
-            font-size: 14px;
-            color: #0e4c35;
-            font-weight: bold;
-          }
-          .step-description {
-            font-size: 14px;
-            color: #444;
-          }
-          .step-number {
-            font-size: 14px;
-            background: #1e8449;
-            color: #fff;
-            border-radius: 50%;
-            display: inline-block;
-            padding: 0 13px;
-            margin-right: 14px;
-            font-weight: bold;
-          }
+.step-description {
+  font-size: 10px; /* was 14px */
+  color: #444;
+  line-height: 1.4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
         </style>
       </head>
       <body>
@@ -356,6 +346,8 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
           <div class="page-break"></div>
+                  <div class="page-wrapper">
+
         <div style="padding: 30px 40px;">
           <div class="main-title">SHOP. SHINE. SLAY.</div>
           <div class="subtitle">Make purchase in - <strong>5 easy steps</strong> No pressure. No confusion. Just sparkle</div>
@@ -371,9 +363,9 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     <!-- Step Content -->
     <td style="vertical-align:top; padding-left:10px; border:none;">
       <div class="step-content">
-        <span class="step-number" style="font-weight:bold; font-size:18px; margin-right:8px;">1</span>
-        <span class="step-title" style="font-weight:bold; font-size:16px;">You Reach Out to Us</span>
-        <div class="step-description" style="margin-top:5px; font-size:14px; line-height:1.5;">
+        <span class="step-number" style="font-weight:bold; font-size:14px; margin-right:8px;">1</span>
+        <span class="step-title" style="font-weight:bold; font-size:14px;">You Reach Out to Us</span>
+        <div class="step-description" style="margin-top:5px; font-size:13px; line-height:1.5;">
           Looking for something elegant, bold, or uniquely you? Slide into our DMs, 
           <strong>WhatsApp, Instagram, or book a call.</strong><br>
           Tell us your vision—we’ll craft a tailored estimate piece that fits your style and your budget.
@@ -407,7 +399,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:70px; height:70px;" />
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Craft Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -427,7 +419,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:70px; height:70px;" />
+      <img src="https://i.ibb.co/Nnx537Mv/TEST-IMG.png" alt="Payment Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -447,7 +439,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
     <td style="border:none; width:60px; vertical-align:top;">
-      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:70px; height:70px;" />
+      <img src="https://i.ibb.co/3Sc8cnc/DELIVERY-IMG.png" alt="Delivery Icon" style="width:70px;" />
     </td>
     <td style="border:none; vertical-align:top; padding-left:10px;">
       <div class="step-content">
@@ -462,7 +454,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   </tr>
 </table>
 
-
+</div>
         </div>
       </body>
     </html>
