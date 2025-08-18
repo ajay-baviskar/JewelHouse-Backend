@@ -142,13 +142,27 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             text-align: center;
             margin-bottom: 20px;
           }
+
           .step {
-            margin: 28px 0;
-            padding: 10px 18px 10px 22px;
-            border-left: 5px solid #0e4c35;
-            background: #f6fbf9;
-            border-radius: 6px;
-          }
+  display: flex;
+  align-items: center; /* align items in middle */
+  gap: 15px;           /* spacing between image and text */
+  margin-bottom: 20px; /* spacing between steps */
+}
+
+.step img {
+  width: 45px;   /* adjust size */
+  height: 45px;
+  object-fit: contain;
+  flex-shrink: 0; /* prevent image from shrinking */
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+}
+
+  
           .step-title {
             font-size: 19px;
             color: #0e4c35;
@@ -371,13 +385,22 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             </div>
           </div>
 
-          <div class="step">
-            <span class="step-number">4</span>
-            <span class="step-title">Easy Payment</span>
-            <div class="step-description">
-              Before we ship, you’ll receive detailed photos to preview. Once you’re happy, <strong>we share the final bill and a secure payment link.</strong> Your piece is then prepped and packed with utmost care.
-            </div>
-          </div>
+
+<div class="step">
+  <img src="http://62.72.33.172:4000/images/1753696116487-logo3.png" alt="Payment Icon" />
+
+  <div class="step-content">
+    <span class="step-number">4</span>
+    <span class="step-title">Easy Payment</span>
+    <div class="step-description">
+      Before we ship, you’ll receive detailed photos to preview. Once you’re happy, 
+      <strong>we share the final bill and a secure payment link.</strong> 
+      Your piece is then prepped and packed with utmost care.
+    </div>
+  </div>
+</div>
+
+ 
 
           <div class="step">
             <span class="step-number">5</span>
