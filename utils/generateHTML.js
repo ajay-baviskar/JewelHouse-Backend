@@ -194,8 +194,10 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
         <strong>Quotation ID:</strong> ${qt_id}
       </td>
       <td style="text-align: right;border: none; color: inherit;">
-                <strong>Date:</strong> ${date}
-
+<strong>Date:</strong> ${(() => {
+  const [year, month, day] = date.split("-");
+  return `${day}-${month}-${year}`;
+})()}
       </td>
     </tr>
   </table>
@@ -227,7 +229,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
           <div class="section">
-            <h3>Gold Estimated</h3>
+            <h3>Estimated Gold Cost</h3>
             <table>
               <thead>
                 <tr>
@@ -254,7 +256,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
          <div class="section">
-            <h3>Labour Estimated</h3>
+            <h3>Estimated Labour Cost</h3>
             <table>
               <thead>
                 <tr>
@@ -276,7 +278,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
           <div class="section">
-            <h3>Diamond Estimated</h3>
+            <h3>Estimated Diamond Cost</h3>
             <table>
               <thead>
                 <tr>
@@ -302,7 +304,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
           </div>
 
           <div class="section">
-            <h3>Quotation Summary Estimated</h3>
+            <h3>Estimated Quotation Summary </h3>
             <table>
               <thead>
                 <tr>
