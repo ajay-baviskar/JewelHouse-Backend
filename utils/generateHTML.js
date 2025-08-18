@@ -138,6 +138,13 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   margin-bottom: 8px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.subtitle {
+  font-size: 14px; /* was 14px */
+  text-align: center;
+  margin-bottom: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
   /* Step Section Styling */
   .step-content {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -345,6 +352,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 
 
           <div class="page-break"></div>
+          <br><br>
                   <div class="page-wrapper">
 
         <div style="padding: 30px 40px;">
@@ -372,7 +380,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
   </tr>
 </table>
 
-
+<br>
 <!-- Step 2 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
   <tr>
@@ -392,6 +400,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+<br>
 
 <!-- Step 3 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
@@ -412,6 +421,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+<br>
 
 <!-- Step 4 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
@@ -432,6 +442,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+<br>
 
 <!-- Step 5 -->
 <table style="border-collapse: collapse; border: none; width:100%;">
@@ -451,6 +462,9 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     </td>
   </tr>
 </table>
+<br>
+<br>
+<br>
 
 </div>
         </div>
