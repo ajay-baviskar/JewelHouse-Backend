@@ -341,6 +341,7 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
     <li>To book your order you need to pay <strong>25% advance</strong> against the estimated value above and the <strong>balance payment</strong> on dispatch.</li>
   </ul>
 </div>
+</div>
 
 
 
