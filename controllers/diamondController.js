@@ -61,18 +61,50 @@ const getAllDiamonds = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-        // Build filter object dynamically
         const filter = {};
-        const filterableFields = ['Size', 'Color', 'Shape', 'Purity', 'Discount', 'Price'];
+        const filterableFields = ['Color', 'Shape', 'Purity', 'Discount', 'Price'];
 
+        // Normal filters (direct matches)
         filterableFields.forEach((field) => {
             if (req.query[field]) {
                 filter[field] = req.query[field];
             }
         });
 
+        let diamondsQuery = Diamond.find(filter);
+
+        // Special handling for Size (range filtering)
+        if (req.query.Size) {
+            const inputSize = parseFloat(req.query.Size);
+
+            diamondsQuery = diamondsQuery.where({
+                Size: { $exists: true }
+            }).find({
+                $expr: {
+                    $and: [
+                        { 
+                            $lte: [
+                                parseFloat(inputSize),
+                                {
+                                    $toDouble: { $arrayElemAt: [{ $split: ["$Size", "-"] }, 1] }
+                                }
+                            ]
+                        },
+                        { 
+                            $gte: [
+                                parseFloat(inputSize),
+                                {
+                                    $toDouble: { $arrayElemAt: [{ $split: ["$Size", "-"] }, 0] }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            });
+        }
+
         const total = await Diamond.countDocuments(filter);
-        const diamonds = await Diamond.find(filter)
+        const diamonds = await diamondsQuery
             .skip(skip)
             .limit(limit)
             .sort({ _id: -1 });
