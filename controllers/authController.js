@@ -305,10 +305,111 @@ const forgotPassword = async (req, res) => {
 };
 
 
+
+const editUser = async (req, res) => {
+    try {
+        const { id } = req.params; // user id from URL
+        const { name, email, mobile, role } = req.body;
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                code: 404,
+                status: false,
+                message: "User not found"
+            });
+        }
+
+        // Update only provided fields
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (mobile) user.mobile = mobile;
+        if (role) user.role = role;
+
+        await user.save();
+
+        return res.status(200).json({
+            code: 200,
+            status: true,
+            message: "User updated successfully",
+            data: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        console.error("Edit user error:", error);
+        return res.status(500).json({
+            code: 500,
+            status: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
+// ✅ Update Password
+const updatePassword = async (req, res) => {
+    try {
+        const { id } = req.params; // user id
+        const { newPassword, confirmPassword } = req.body;
+
+        if (!newPassword || !confirmPassword) {
+            return res.status(400).json({
+                code: 400,
+                status: false,
+                message: "newPassword and confirmPassword are required"
+            });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                code: 400,
+                status: false,
+                message: "Passwords do not match"
+            });
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                code: 404,
+                status: false,
+                message: "User not found"
+            });
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        return res.status(200).json({
+            code: 200,
+            status: true,
+            message: "Password updated successfully"
+        });
+    } catch (error) {
+        console.error("Update password error:", error);
+        return res.status(500).json({
+            code: 500,
+            status: false,
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
+
 module.exports = {
     register: exports.register,
     login: exports.login,
     loginAdmin: exports.loginAdmin,
     forgotPassword,
-    getAllUsers
+    getAllUsers,
+    editUser,
+    updatePassword,
 };
