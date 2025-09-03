@@ -305,6 +305,46 @@ const updateDiamond = async (req, res) => {
 };
 
 
+const createDiamond = async (req, res) => {
+  try {
+    const { Size, Color, Shape, Purity, Discount, Price } = req.body;
+
+    if (!Size || !Color || !Shape || !Purity) {
+      return res.status(400).json({
+        code: 400,
+        status: false,
+        message: "Size, Color, Shape and Purity are required"
+      });
+    }
+
+    const diamond = new Diamond({
+      Size,
+      Color,
+      Shape,
+      Purity,
+      Discount,
+      Price,
+    });
+
+    await diamond.save();
+
+    return res.status(201).json({
+      code: 201,
+      status: true,
+      message: "Diamond inserted successfully",
+      data: diamond,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Failed to insert diamond",
+      error: err.message,
+    });
+  }
+};
+
+
 
 // Export all controller functions
 module.exports = {
@@ -312,5 +352,6 @@ module.exports = {
     getAllDiamonds,
     getDropdownData,
     getDiamondPrice,
-    updateDiamond
+    updateDiamond,
+    createDiamond
 };
