@@ -4,6 +4,7 @@ const PDFDocument = require('pdfkit');
 const Quotation = require('../models/Quotation'); // Update path as needed
 const { generateQuotationHTML } = require('../utils/generateHTML');
 const htmlPdf = require('html-pdf');
+const User = require("../models/User"); // make sure you have imported User model
 
 // Submit Quotation API
 
@@ -28,6 +29,16 @@ const submitQuotation = async (req, res) => {
       });
     }
 
+    const user = await User.findById(userId).select("name mobile");
+    if (!user) {
+      return res.status(404).json({
+        code: 404,
+        success: false,
+        message: "User not found"
+      });
+    }
+
+
     // Save in DB
     console.log("Saving quotation to DB...");
     const newQuotation = await Quotation.create({
@@ -41,8 +52,9 @@ const submitQuotation = async (req, res) => {
       orderStatus
     });
     console.log("Quotation saved:", newQuotation._id);
-    const qt_id = newQuotation._id
-
+    const qt_id = newQuotation._id;
+    const userName= user.name
+    const userMobile= user.mobile
     // Generate HTML from template
     const htmlContent = generateQuotationHTML({
       qt_id,
@@ -51,7 +63,10 @@ const submitQuotation = async (req, res) => {
       goldDetails,
       diamondDetails,
       quotationSummary,
-      date
+      date,
+      userName,
+      userMobile
+
     });
 
     // Create /public/pdfs folder if not exists
@@ -61,7 +76,7 @@ const submitQuotation = async (req, res) => {
     }
 
     const imageURL = newQuotation.image_url;
-    const fileName = `quotation_${newQuotation._id}.pdf`;
+    const fileName = `THE_JEWEL_HOUSE_${newQuotation._id}.pdf`;
     const filePath = path.join(pdfsDir, fileName);
 
     htmlPdf.create(htmlContent).toFile(filePath, async (err, result) => {
@@ -87,13 +102,126 @@ const submitQuotation = async (req, res) => {
         message: "Quotation created and PDF generated",
         data: {
           pdfUrl,
-          goldImageURL: imageURL
+          goldImageURL: imageURL,
+           userName: user.name,
+          userMobile: user.mobile
         }
       });
     });
 
   } catch (error) {
     console.error("Error creating quotation:", error.message);
+    return res.status(500).json({
+      code: 500,
+      success: false,
+      message: "Internal server error",
+      error: error.message
+    });
+  }
+};
+
+
+
+const updateQuotation = async (req, res) => {
+  try {
+    const { quotationId } = req.params;
+    const {
+      userId,
+      date,
+      image_url,
+      clientDetails,
+      goldDetails,
+      diamondDetails,
+      quotationSummary,
+      orderStatus
+    } = req.body;
+
+    // Check if quotation exists
+    const existingQuotation = await Quotation.findById(quotationId);
+    if (!existingQuotation) {
+      return res.status(404).json({
+        code: 404,
+        success: false,
+        message: "Quotation not found"
+      });
+    }
+
+    // Update quotation in DB
+    const updatedQuotation = await Quotation.findByIdAndUpdate(
+      quotationId,
+      {
+        $set: {
+          userId,
+          date,
+          image_url,
+          clientDetails,
+          goldDetails,
+          diamondDetails,
+          quotationSummary,
+          orderStatus
+        }
+      },
+      { new: true }
+    );
+
+    // ✅ Fetch user details to add into PDF (name, mobile from Users collection)
+    let user = null;
+    if (userId) {
+      user = await User.findById(userId).select("name mobile");
+    }
+
+    // Generate updated HTML
+    const htmlContent = generateQuotationHTML({
+      qt_id: quotationId,
+      image_url: updatedQuotation.image_url,
+      clientDetails: updatedQuotation.clientDetails,
+      goldDetails: updatedQuotation.goldDetails,
+      diamondDetails: updatedQuotation.diamondDetails,
+      quotationSummary: updatedQuotation.quotationSummary,
+        date: (date instanceof Date) 
+          ? date.toISOString().split("T")[0] 
+          : (typeof date === "string" ? date.split("T")[0] : ""),
+      userName: user?.name || "N/A",
+      userMobile: user?.mobile || "N/A"
+    });
+
+    // Create /public/pdfs folder if not exists
+    const pdfsDir = path.join(__dirname, "../public/pdfs");
+    if (!fs.existsSync(pdfsDir)) {
+      fs.mkdirSync(pdfsDir, { recursive: true });
+    }
+
+    const fileName = `quotation_${quotationId}.pdf`;
+    const filePath = path.join(pdfsDir, fileName);
+
+    htmlPdf.create(htmlContent).toFile(filePath, async (err, result) => {
+      if (err) {
+        console.error("PDF generation error:", err);
+        return res.status(500).json({
+          success: false,
+          message: "Error generating updated PDF",
+          error: err.message
+        });
+      }
+
+      const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
+
+      // ✅ Save PDF URL
+      await Quotation.findByIdAndUpdate(quotationId, { $set: { pdfUrl } });
+
+      return res.status(200).json({
+        code: 200,
+        success: true,
+        message: "Quotation updated successfully",
+        data: {
+          // quotation: updatedQuotation,
+          pdfUrl,
+          goldImageURL: updatedQuotation.image_url
+        }
+      });
+    });
+  } catch (error) {
+    console.error("Error updating quotation:", error.message);
     return res.status(500).json({
       code: 500,
       success: false,
@@ -182,13 +310,24 @@ const getAllQuotations = async (req, res) => {
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const total = await Quotation.countDocuments(filter);
+    const totalPages = Math.ceil(total / limit);
 
+    // Fetch quotations
     const quotations = await Quotation.find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(parseInt(limit));
 
-    const totalPages = Math.ceil(total / limit);
+    // ✅ Attach user details manually
+    const dataWithUsers = await Promise.all(
+      quotations.map(async (q) => {
+        const user = await User.findById(q.userId).select("name mobile email");
+        return {
+          ...q.toObject(),
+          user: user ? user.toObject() : null
+        };
+      })
+    );
 
     res.status(200).json({
       code: 200,
@@ -199,7 +338,7 @@ const getAllQuotations = async (req, res) => {
       limit: parseInt(limit),
       hasPreviousPage: parseInt(page) > 1,
       hasNextPage: parseInt(page) < totalPages,
-      data: quotations,
+      data: dataWithUsers
     });
   } catch (error) {
     res.status(500).json({
@@ -213,8 +352,44 @@ const getAllQuotations = async (req, res) => {
 
 
 
+const deleteQuotation = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedQuotation = await Quotation.findByIdAndDelete(id);
+
+    if (!deletedQuotation) {
+      return res.status(404).json({
+        code: 404,
+        success: false,
+        message: "Quotation not found"
+      });
+    }
+
+    return res.status(200).json({
+      code: 200,
+      success: true,
+      message: "Quotation deleted successfully",
+      deleted_quotation_id: deletedQuotation._id
+    });
+
+  } catch (error) {
+    console.error("Delete Error:", error.message);
+    return res.status(500).json({
+      code: 500,
+      success: false,
+      message: "Failed to delete quotation",
+      error: error.message
+    });
+  }
+};
+
+
+
 module.exports = {
   submitQuotation,
   getQuotationByUserId,
-  getAllQuotations
+  getAllQuotations,
+  updateQuotation,
+  deleteQuotation
 };

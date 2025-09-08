@@ -15,15 +15,15 @@ exports.register = async (req, res) => {
             });
         }
 
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(409).json({
-                code: 409,
-                status: false,
-                message: "User with this email already exists",
-                data: null
-            });
-        }
+        // let user = await User.findOne({ email });
+        // if (user) {
+        //     return res.status(409).json({
+        //         code: 409,
+        //         status: false,
+        //         message: "User with this email already exists",
+        //         data: null
+        //     });
+        // }
 
         user = new User({ name, email, mobile, password, role });
 

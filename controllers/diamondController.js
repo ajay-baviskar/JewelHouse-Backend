@@ -200,13 +200,13 @@ const getDropdownData = async (req, res) => {
 
 const getDiamondPrice = async (req, res) => {
     try {
-        const { size, color, shape, purity } = req.query;
+        const { size, color, shape, purity,discount } = req.query;
 
-        if (!size || !color || !shape || !purity) {
+        if (!size || !color || !shape || !purity ) {
             return res.status(400).json({
 
                 success: false,
-                message: "Please provide size, color, shape, and purity in query params"
+                message: "Please provide size, color, shape, discount and purity in query params"
             });
         }
 
@@ -224,7 +224,7 @@ const getDiamondPrice = async (req, res) => {
         const diamonds = await Diamond.find({
             Color: color,
             Shape: shape,
-            Purity: purity
+            Purity: purity,
         });
 
         // Filter by size range
@@ -251,7 +251,8 @@ const getDiamondPrice = async (req, res) => {
             success: true,
             message: "Price fetched successfully",
             data: {
-                price: matchingDiamond.Price
+                price: matchingDiamond.Price,
+                discount: matchingDiamond.Discount
             }
         });
 
@@ -345,6 +346,53 @@ const createDiamond = async (req, res) => {
 };
 
 
+const downloadDiamondsExcel = async (req, res) => {
+  try {
+    const diamonds = await Diamond.find().lean();
+
+    if (!diamonds || diamonds.length === 0) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: "No diamonds found to export"
+      });
+    }
+
+    // Convert to worksheet
+    const worksheet = xlsx.utils.json_to_sheet(diamonds);
+
+    // Create a new workbook
+    const workbook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(workbook, worksheet, "Diamonds");
+
+    // Generate buffer
+    const buffer = xlsx.write(workbook, { type: "buffer", bookType: "xlsx" });
+
+    // Set headers for file download
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=diamonds.xlsx"
+    );
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    return res.send(buffer);
+
+  } catch (error) {
+    console.error("Excel Download Error:", error.message);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Failed to download diamonds excel",
+      error: error.message
+    });
+  }
+};
+
+
+
 
 // Export all controller functions
 module.exports = {
@@ -353,5 +401,6 @@ module.exports = {
     getDropdownData,
     getDiamondPrice,
     updateDiamond,
-    createDiamond
+    createDiamond,
+    downloadDiamondsExcel
 };
