@@ -23,38 +23,38 @@ function generateQuotationHTML({
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #2c3e50;
             background: #fff;
-            font-size: 7px;
           }
           .page-wrapper {
-            margin: 4px;
-            padding: 6px 8px;
+            margin: 6px;
+            padding: 10px 14px;
             background-color: #ffffff;
             border: 1px solid #0e4c35;
-            border-radius: 4px;
+            border-radius: 6px;
           }
-          header {
-            text-align: center;
-            border-bottom: 1px solid #c2c2c2;
-            padding: 4px 0;
-            margin-bottom: 6px;
-            background-color: #0e4c35;
-          }
-          header img {
-            height: 50px;
-            display: block;
-            margin: 0 auto;
-          }
+         header {
+  text-align: center;
+  padding: 6px 0;
+  margin-bottom: 6px;
+  background-color: #0e4c35;
+}
+
+header img {
+  display: block;
+  margin: 0 auto;
+  height: 60px;
+}
+
           h4 {
-            margin: 4px 0 3px;
-            font-size: 8px;
+            margin: 6px 0 4px;
+            font-size: 12px;
             color: #1e8449;
             border-left: 2px solid #0e4c35;
             padding-left: 4px;
             background: #f1f7f4;
           }
           .section p {
-            margin: 1px 0;
-            font-size: 7px;
+            margin: 2px 0;
+            font-size: 10px;
           }
           table {
             width: 100%;
@@ -64,8 +64,8 @@ function generateQuotationHTML({
           }
           th, td {
             border: 1px solid #ccc;
-            padding: 2px;
-            font-size: 6px;
+            padding: 2px 4px;
+            font-size: 10px;
             text-align: left;
           }
           th {
@@ -77,79 +77,78 @@ function generateQuotationHTML({
             padding: 2px;
             background: #f9fdfb;
             border: 1px solid #d8eae1;
-            border-radius: 2px;
+            border-radius: 3px;
           }
           .total {
             font-weight: bold;
             color: #1e8449;
-            font-size: 7px;
+            font-size: 11px;
           }
           .note {
-            margin-top: 6px;
-            padding: 4px;
+            margin-top: 8px;
+            padding: 6px;
             border: 1px dashed #0e4c35;
             background: #f5fffa;
-            border-radius: 2px;
-            font-size: 7px;
+            border-radius: 3px;
           }
           .note h4 {
-            margin-bottom: 2px;
-            font-size: 7px;
+            margin-bottom: 4px;
+            font-size: 11px;
             color: #0e4c35;
           }
           .note ul {
-            padding-left: 12px;
+            padding-left: 16px;
             margin: 0;
-            font-size: 7px;
+            font-size: 10px;
           }
           .note li {
-            margin-bottom: 2px;
-            line-height: 1.2;
+            margin-bottom: 3px;
+            line-height: 1.3;
           }
           * { box-sizing: border-box; }
           .column {
             float: left;
             width: 50%;
-            padding: 2px;
-            font-size: 7px;
+            padding: 4px;
+            font-size: 10px;
           }
           .row:after { content: ""; display: table; clear: both; }
           .page-break { page-break-before: always; }
           .main-title {
-            font-size: 10px;
+            font-size: 14px;
             font-weight: bold;
             color: #1e8449;
             text-align: center;
-            margin-bottom: 4px;
-          }
-          .subtitle {
-            font-size: 8px;
-            text-align: center;
             margin-bottom: 6px;
           }
-          .step-content { margin-bottom: 6px; }
+          .subtitle {
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          .step-content { margin-bottom: 8px; }
           .step-number {
-            font-size: 8px;
+            font-size: 11px;
             background: #1e8449;
             color: #fff;
             border-radius: 50%;
             display: inline-block;
-            padding: 2px 6px;
-            margin-right: 4px;
+            padding: 2px 7px;
+            margin-right: 6px;
             font-weight: bold;
             vertical-align: middle;
           }
           .step-title {
-            font-size: 8px;
+            font-size: 12px;
             color: #0e4c35;
             font-weight: bold;
             vertical-align: middle;
           }
           .step-description {
-            font-size: 7px;
+            font-size: 10px;
             color: #444;
-            line-height: 1.2;
-            margin-top: 2px;
+            line-height: 1.4;
+            margin-top: 3px;
           }
         </style>
       </head>
