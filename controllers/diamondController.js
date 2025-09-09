@@ -30,8 +30,16 @@ const importDiamonds = async (req, res) => {
             });
         }
 
-        // Insert into DB
-        await Diamond.insertMany(data);
+        let insertedCount = 0;
+
+        for (const item of data) {
+            // Check if an exact match exists
+            const exists = await Diamond.findOne(item); // MongoDB will match all fields
+            if (!exists) {
+                await Diamond.create(item);
+                insertedCount++;
+            }
+        }
 
         // Delete file after processing
         fs.unlinkSync(filePath);
@@ -40,7 +48,8 @@ const importDiamonds = async (req, res) => {
             code: 200,
             status: true,
             message: "Diamonds imported successfully",
-            total: data.length
+            totalImported: insertedCount,
+            totalSkipped: data.length - insertedCount
         });
 
     } catch (err) {
@@ -53,6 +62,7 @@ const importDiamonds = async (req, res) => {
         });
     }
 };
+
 
 // Get All Diamonds with Pagination
 const getAllDiamonds = async (req, res) => {
