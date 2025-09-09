@@ -10,7 +10,7 @@ const importDiamonds = async (req, res) => {
       return res.status(400).json({
         code: 400,
         status: false,
-        message: "Please upload an Excel file",
+        message: "Please upload an Excel file"
       });
     }
 
@@ -20,32 +20,34 @@ const importDiamonds = async (req, res) => {
     const workbook = xlsx.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
-    const data = xlsx.utils.sheet_to_json(sheet);
+    let data = xlsx.utils.sheet_to_json(sheet);
 
     if (!data || data.length === 0) {
       return res.status(400).json({
         code: 400,
         status: false,
-        message: "Excel file is empty or invalid format",
+        message: "Excel file is empty or invalid format"
       });
     }
 
-    // ✅ Insert all at once (fast)
-    let insertedCount = 0;
-    let skippedCount = 0;
+    // Extract all certificateNos from Excel
+    const certificateNos = data.map((d) => d.certificateNo);
 
-    try {
-      const result = await Diamond.insertMany(data, { ordered: false }); 
+    // Fetch already existing ones from DB (only certificateNo field)
+    const existing = await Diamond.find(
+      { certificateNo: { $in: certificateNos } },
+      { certificateNo: 1 }
+    ).lean();
+
+    const existingSet = new Set(existing.map((e) => e.certificateNo));
+
+    // Filter only new records (ignore duplicates)
+    const filteredData = data.filter((d) => !existingSet.has(d.certificateNo));
+
+    let insertedCount = 0;
+    if (filteredData.length > 0) {
+      const result = await Diamond.insertMany(filteredData, { ordered: false });
       insertedCount = result.length;
-      skippedCount = data.length - result.length;
-    } catch (err) {
-      // Mongo will throw duplicate key error if unique index exists
-      if (err.writeErrors) {
-        insertedCount = err.result.result.nInserted;
-        skippedCount = data.length - insertedCount;
-      } else {
-        throw err;
-      }
     }
 
     // Delete file after processing
@@ -56,18 +58,20 @@ const importDiamonds = async (req, res) => {
       status: true,
       message: "Diamonds imported successfully",
       totalImported: insertedCount,
-      totalSkipped: skippedCount,
+      totalSkipped: data.length - insertedCount
     });
+
   } catch (err) {
     console.error("Import Error:", err.message);
     return res.status(500).json({
       code: 500,
       status: false,
       message: "Failed to import diamonds",
-      error: err.message,
+      error: err.message
     });
   }
 };
+
 
 
 
