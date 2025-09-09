@@ -2,6 +2,7 @@ const Diamond = require('../models/Diamond');
 const xlsx = require('xlsx');
 const path = require('path');
 const fs = require('fs');
+const ExcelJS = require("exceljs");
 
 // Import Diamonds from Excel
 const importDiamonds = async (req, res) => {
@@ -370,27 +371,7 @@ const createDiamond = async (req, res) => {
 
 const downloadDiamondsExcel = async (req, res) => {
   try {
-    const diamonds = await Diamond.find().lean();
-
-    if (!diamonds || diamonds.length === 0) {
-      return res.status(404).json({
-        code: 404,
-        status: false,
-        message: "No diamonds found to export"
-      });
-    }
-
-    // Convert to worksheet
-    const worksheet = xlsx.utils.json_to_sheet(diamonds);
-
-    // Create a new workbook
-    const workbook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(workbook, worksheet, "Diamonds");
-
-    // Generate buffer
-    const buffer = xlsx.write(workbook, { type: "buffer", bookType: "xlsx" });
-
-    // Set headers for file download
+    // Set headers before writing
     res.setHeader(
       "Content-Disposition",
       "attachment; filename=diamonds.xlsx"
@@ -400,19 +381,45 @@ const downloadDiamondsExcel = async (req, res) => {
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
 
-    return res.send(buffer);
+    // Create workbook with streaming writer (directly pipes to response)
+    const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream: res });
+    const worksheet = workbook.addWorksheet("Diamonds");
+
+    // Add header row (schema keys)
+    worksheet.addRow([
+      "Size", "Color", "Shape", "Purity", "Discount", "Price", "CreatedAt"
+    ]).commit();
+
+    // Use cursor instead of fetching everything
+    const cursor = Diamond.find().cursor();
+
+    for (let diamond = await cursor.next(); diamond != null; diamond = await cursor.next()) {
+      worksheet.addRow([
+        diamond.Size,
+        diamond.Color,
+        diamond.Shape,
+        diamond.Purity,
+        diamond.Discount,
+        diamond.Price,
+        diamond.createdAt ? diamond.createdAt.toISOString() : ""
+      ]).commit(); // commit row immediately to free memory
+    }
+
+    // Finalize file
+    await workbook.commit();
 
   } catch (error) {
     console.error("Excel Download Error:", error.message);
-    return res.status(500).json({
-      code: 500,
-      status: false,
-      message: "Failed to download diamonds excel",
-      error: error.message
-    });
+    if (!res.headersSent) {
+      res.status(500).json({
+        code: 500,
+        status: false,
+        message: "Failed to download diamonds excel",
+        error: error.message
+      });
+    }
   }
 };
-
 
 
 
