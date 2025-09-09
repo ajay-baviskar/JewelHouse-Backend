@@ -1,25 +1,27 @@
 const mongoose = require('mongoose');
 
-// Define schema
 const DiamondSchema = new mongoose.Schema({
-    Size: { type: String, default: null },
-    Color: { type: String, default: null },
-    Shape: { type: String, default: null },
-    Purity: { type: String, default: null },
-    Discount: { type: String, default: null },
-    Price: { type: String, default: null },
+  Size: { type: String, default: null },
+  Color: { type: String, default: null },
+  Shape: { type: String, default: null },
+  Purity: { type: String, default: null },
+  Discount: { type: String, default: null },
+  Price: { type: String, default: null },
 
-    // 🔑 Add a uniqueKey for fast duplicate checks
-    uniqueKey: { type: String, unique: true, index: true }
+  // Unique key for detecting duplicates (based on all fields)
+  uniqueKey: { type: String, required: true, unique: true, index: true }
 }, { timestamps: true });
 
-// Pre-save middleware to generate uniqueKey automatically
-DiamondSchema.pre("save", function (next) {
-    if (!this.uniqueKey) {
-        this.uniqueKey = `${this.Size || ''}-${this.Color || ''}-${this.Shape || ''}-${this.Purity || ''}-${this.Discount || ''}-${this.Price || ''}`;
-    }
-    next();
-});
-
+// Utility function to generate a unique key from fields
+DiamondSchema.statics.generateUniqueKey = function (diamond) {
+  return [
+    diamond.Size || '',
+    diamond.Color || '',
+    diamond.Shape || '',
+    diamond.Purity || '',
+    diamond.Discount || '',
+    diamond.Price || ''
+  ].join('-');
+};
 
 module.exports = mongoose.model('Diamond', DiamondSchema);

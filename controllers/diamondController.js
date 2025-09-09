@@ -30,18 +30,19 @@ const importDiamonds = async (req, res) => {
       });
     }
 
-    // Add uniqueKey for each record
+    // ✅ Add uniqueKey for each record (before insertMany)
     const withKeys = data.map((d) => ({
       ...d,
       uniqueKey: `${d.Size || ''}-${d.Color || ''}-${d.Shape || ''}-${d.Purity || ''}-${d.Discount || ''}-${d.Price || ''}`
     }));
 
     let insertedCount = 0;
+
     try {
       const result = await Diamond.insertMany(withKeys, { ordered: false });
       insertedCount = result.length;
     } catch (err) {
-      // Bulk insert will throw duplicate key errors, ignore them
+      // Mongo will throw duplicate key errors, count successful inserts
       if (err.writeErrors) {
         insertedCount = err.result?.result?.nInserted || 0;
       } else {
@@ -69,6 +70,7 @@ const importDiamonds = async (req, res) => {
     });
   }
 };
+
 
 
 
