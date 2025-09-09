@@ -16,7 +16,7 @@ const importDiamonds = async (req, res) => {
 
     const filePath = req.file.path;
 
-    // Read Excel file
+    // Read Excel
     const workbook = xlsx.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
@@ -30,27 +30,25 @@ const importDiamonds = async (req, res) => {
       });
     }
 
-    // Extract all certificateNos from Excel
-    const certificateNos = data.map((d) => d.certificateNo);
-
-    // Fetch already existing ones from DB (only certificateNo field)
-    const existing = await Diamond.find(
-      { certificateNo: { $in: certificateNos } },
-      { certificateNo: 1 }
-    ).lean();
-
-    const existingSet = new Set(existing.map((e) => e.certificateNo));
-
-    // Filter only new records (ignore duplicates)
-    const filteredData = data.filter((d) => !existingSet.has(d.certificateNo));
+    // Add uniqueKey for each record
+    const withKeys = data.map((d) => ({
+      ...d,
+      uniqueKey: `${d.Size || ''}-${d.Color || ''}-${d.Shape || ''}-${d.Purity || ''}-${d.Discount || ''}-${d.Price || ''}`
+    }));
 
     let insertedCount = 0;
-    if (filteredData.length > 0) {
-      const result = await Diamond.insertMany(filteredData, { ordered: false });
+    try {
+      const result = await Diamond.insertMany(withKeys, { ordered: false });
       insertedCount = result.length;
+    } catch (err) {
+      // Bulk insert will throw duplicate key errors, ignore them
+      if (err.writeErrors) {
+        insertedCount = err.result?.result?.nInserted || 0;
+      } else {
+        throw err;
+      }
     }
 
-    // Delete file after processing
     fs.unlinkSync(filePath);
 
     return res.status(200).json({
@@ -71,6 +69,7 @@ const importDiamonds = async (req, res) => {
     });
   }
 };
+
 
 
 
