@@ -174,13 +174,13 @@ const updateOrderStatus = async (req, res) => {
     const { orderStatus } = req.body;
 
     // Allowed statuses
-    const allowedStatuses = ['pending', 'confirmed', 'shipped', 'delivered'];
+    const allowedStatuses = ['pending','placed', 'confirmed', 'shipped', 'delivered'];
 
     if (!allowedStatuses.includes(orderStatus)) {
       return res.status(400).json({
         code: 400,
         status: false,
-        message: 'Invalid order status. Allowed statuses: pending, confirmed, shipped, delivered'
+        message: 'Invalid order status. Allowed statuses: pending, placed, confirmed, shipped, delivered'
       });
     }
 
