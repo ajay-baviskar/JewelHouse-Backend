@@ -1,21 +1,29 @@
-function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, diamondDetails, quotationSummary, date, userName, userMobile }) {
+function generateQuotationHTML({
+  qt_id,
+  image_url,
+  clientDetails,
+  goldDetails,
+  diamondDetails,
+  quotationSummary,
+  date,
+  userName,
+  userMobile
+}) {
   return `
     <html>
       <head>
         <style>
-           @page {
+          @page {
             size: letter;
             margin: 0;
           }
-
           html, body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #2c3e50;
-            background: #ffffffff;
+            background: #fff;
           }
-
           .page-wrapper {
             margin: 10px;
             padding: 16px 20px;
@@ -24,64 +32,46 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             box-shadow: 0 0 6px rgba(0,0,0,0.2);
             border-radius: 8px;
           }
-
           header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             border-bottom: 2px solid #c2c2c2;
-            padding-bottom: 6px;
+            padding: 6px 0;
             margin-bottom: 12px;
             background-color: #0e4c35;
           }
-
-          .logo {
-            height: 45px;
+          header img {
+            height: 80px;
           }
-
-          .title {
-            text-align: right;
-          }
-
-          h1 {
-            margin: 0;
-            font-size: 20px;
-            color: #0e4c35;
-          }
-
-          h3 {
-            margin: 14px 0 8px;
-            color: #1a3c34;
-            border-left: 4px solid #0e4c35;
-            padding-left: 8px;
-            font-size: 11px;
+          h4 {
+            margin: 10px 0 6px;
+            font-size: 10px;
+            color: #1e8449;
+            border-left: 3px solid #0e4c35;
+            padding-left: 6px;
             background: #f1f7f4;
           }
-
-          p {
-            margin: 1px 0;
-            font-size: 11px;
+          .section p {
+            margin: 2px 0;
+            font-size: 9px;
           }
-
           table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 4px;
             background-color: #fff;
           }
-
           th, td {
             border: 1px solid #ccc;
             padding: 3px;
             font-size: 7px;
             text-align: left;
           }
-
           th {
             background-color: #0e4c35;
             color: #fff;
           }
-
           .section {
             margin-bottom: 10px;
             padding: 3px;
@@ -89,13 +79,11 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             border: 1px solid #d8eae1;
             border-radius: 4px;
           }
-
           .total {
             font-weight: bold;
             color: #1e8449;
             font-size: 7px;
           }
-
           .note {
             margin-top: 12px;
             padding: 8px;
@@ -103,133 +91,108 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
             background: #f5fffa;
             border-radius: 4px;
           }
-
-          .note h3 {
+          .note h4 {
             margin-bottom: 4px;
-            font-size: 7px;
+            font-size: 9px;
             color: #0e4c35;
           }
-
           .note ul {
             padding-left: 18px;
             margin: 0;
             font-size: 9px;
           }
-
           .note li {
             margin-bottom: 4px;
             line-height: 1.4;
           }
-
           * { box-sizing: border-box; }
-
-          .column { float: left; width: 50%; padding: 10px; }
+          .column {
+            float: left;
+            width: 50%;
+            padding: 6px;
+            font-size: 9px;
+          }
           .row:after { content: ""; display: table; clear: both; }
-
-          /* PAGE BREAK for second page */
           .page-break { page-break-before: always; }
-
-          /* Second page styles */
-        .main-title {
-  font-size: 16px; /* smaller than 18px */
-  font-weight: bold;
-  color: #1e8449;
-  text-align: center;
-  margin-bottom: 8px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.subtitle {
-  font-size: 14px; /* was 14px */
-  text-align: center;
-  margin-bottom: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-  /* Step Section Styling */
-  .step-content {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 12px;
-  }
-
-  .step-number {
-    font-size: 13px;
-    background: #1e8449;
-    color: #fff;
-    border-radius: 50%;
-    display: inline-block;
-    padding: 4px 9px;
-    margin-right: 8px;
-    font-weight: bold;
-    vertical-align: middle;
-  }
-
-  .step-title {
-    font-size: 13px;
-    color: #0e4c35;
-    font-weight: bold;
-    vertical-align: middle;
-  }
-
-  .step-description {
-    font-size: 11px;
-    color: #444;
-    line-height: 1.5;
-    margin-top: 5px;
-  }
-</style>
-
+          .main-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e8449;
+            text-align: center;
+            margin-bottom: 8px;
+          }
+          .subtitle {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+          }
+          .step-content { margin-bottom: 12px; }
+          .step-number {
+            font-size: 13px;
+            background: #1e8449;
+            color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            padding: 4px 9px;
+            margin-right: 8px;
+            font-weight: bold;
+            vertical-align: middle;
+          }
+          .step-title {
+            font-size: 13px;
+            color: #0e4c35;
+            font-weight: bold;
+            vertical-align: middle;
+          }
+          .step-description {
+            font-size: 11px;
+            color: #444;
+            line-height: 1.5;
+            margin-top: 5px;
+          }
         </style>
       </head>
       <body>
         <div class="page-wrapper">
           <header>
-<img src="http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png" alt="Client Image" style="height: 80px; display: block; margin: 0 auto;" />
-
-           
+            <img src="http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png" alt="Logo" />
           </header>
-<div style="margin-top: 8px; margin-bottom: 12px;">
-  <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit;">
-    <tr>
-      <td style = "border: none; color: inherit;">
-        <strong>Quotation ID:</strong> ${qt_id}
-      </td>
-      <td style="text-align: right;border: none; color: inherit;">
-<strong>Date:</strong> ${(() => {
-  const [year, month, day] = date.split("-");
-  return `${day}-${month}-${year}`;
-})()}
-      </td>
-    </tr>
-  </table>
-</div>
-          <div class="section">
 
-       <div class="row">
-  <div class="column">
-      <h3>Client Details</h3>
-            <p><strong>Name:</strong> ${clientDetails.name}</p>
-            <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
-                        <p><strong>City:</strong> ${clientDetails.city}</p>
-
-            <p><strong>Category:</strong> ${goldDetails .category}</p>
-           
-  </div>
-  <div class="column"" style = "padding-left: 120px;">
-  <img src="${image_url}" 
-     alt="Client Image" 
-     style="max-width: 100%; height: 80px; border: 1px solid #ccc; border-radius: 6px; display: block; object-fit: contain;" />
-
-<p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
-
-
-
-  </div>
-</div>
-</div>
-
+          <div style="margin-top: 8px; margin-bottom: 12px;">
+            <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit; width:100%;">
+              <tr>
+                <td style="border: none; color: inherit;">
+                  <strong>Quotation ID:</strong> ${qt_id}
+                </td>
+                <td style="text-align: right; border: none; color: inherit;">
+                  <strong>Date:</strong> ${(() => {
+                    const [year, month, day] = date.split("-");
+                    return `${day}-${month}-${year}`;
+                  })()}
+                </td>
+              </tr>
+            </table>
+          </div>
 
           <div class="section">
-            <h3>Estimated Gold Cost</h3>
+            <div class="row">
+              <div class="column">
+                <h4>Client Details</h4>
+                <p><strong>Name:</strong> ${clientDetails.name}</p>
+                <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
+                <p><strong>City:</strong> ${clientDetails.city}</p>
+                <p><strong>Category:</strong> ${goldDetails.category}</p>
+              </div>
+              <div class="column" style="text-align:center;">
+                <img src="${image_url}" alt="Client Image" style="max-width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" />
+                <p><strong>Size:</strong> ${goldDetails.jewelrySize}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GOLD COST -->
+          <div class="section">
+            <h4>Estimated Gold Cost</h4>
             <table>
               <thead>
                 <tr>
@@ -240,23 +203,17 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
                 <tr>
                   <td>${goldDetails.goldPurity}</td>
                   <td>${goldDetails.goldColor}</td>
-             
                   <td>${goldDetails.weight}</td>
-    <td>₹${Math.ceil(goldDetails.ratePerGram).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(goldDetails.totalGoldCost).toLocaleString("en-IN")}</td>
-
+                  <td>₹${Math.ceil(goldDetails.ratePerGram).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(goldDetails.totalGoldCost).toLocaleString("en-IN")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-
-
-
-
-
-         <div class="section">
-            <h3>Estimated Labour Cost</h3>
+          <!-- LABOUR COST -->
+          <div class="section">
+            <h4>Estimated Labour Cost</h4>
             <table>
               <thead>
                 <tr>
@@ -265,25 +222,21 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               </thead>
               <tbody>
                 <tr>
-                      <td>${goldDetails.weight}</td>
-<td>₹${Math.ceil(goldDetails.labourCost).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(goldDetails.totalLabourPrice).toLocaleString("en-IN")}</td>
-
+                  <td>${goldDetails.weight}</td>
+                  <td>₹${Math.ceil(goldDetails.labourCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(goldDetails.totalLabourPrice).toLocaleString("en-IN")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-
-
-
-
+          <!-- DIAMOND COST -->
           <div class="section">
-            <h3>Estimated Diamond Cost</h3>
+            <h4>Estimated Diamond Cost</h4>
             <table>
               <thead>
                 <tr>
-                  <th>Type</th><th>Shape</th><th>cts</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th> <th>Price/cts(Offer)</th><th>Total</th>
+                  <th>Type</th><th>Shape</th><th>cts</th><th>Color</th><th>Clarity</th><th>Rate/Cts</th><th>Discount</th><th>Price/cts(Offer)</th><th>Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -294,18 +247,19 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
                     <td>${d.size}</td>
                     <td>${d.color}</td>
                     <td>${d.clarity}</td>
-<td>₹${Math.ceil(d.ratePerCts).toLocaleString("en-IN")}</td>
+                    <td>₹${Math.ceil(d.ratePerCts).toLocaleString("en-IN")}</td>
                     <td>${d.discount}%</td>
-<td>₹${Math.ceil(d.ratePerCtsAfterDis).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(d.totalAmount).toLocaleString("en-IN")}</td>
-           </tr>
+                    <td>₹${Math.ceil(d.ratePerCtsAfterDis).toLocaleString("en-IN")}</td>
+                    <td>₹${Math.ceil(d.totalAmount).toLocaleString("en-IN")}</td>
+                  </tr>
                 `).join('')}
               </tbody>
             </table>
           </div>
 
+          <!-- SUMMARY -->
           <div class="section">
-            <h3>Estimated Quotation Summary </h3>
+            <h4>Estimated Quotation Summary</h4>
             <table>
               <thead>
                 <tr>
@@ -314,60 +268,41 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
               </thead>
               <tbody>
                 <tr>
-<td>₹${Math.ceil(quotationSummary.goldCost).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(quotationSummary.labourCost).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(quotationSummary.diamondCost).toLocaleString("en-IN")}</td>
-<td>₹${Math.ceil(quotationSummary.gst).toLocaleString("en-IN")}</td>
-<td class="total">₹${Math.ceil(quotationSummary.total).toLocaleString("en-IN")}</td>
-
+                  <td>₹${Math.ceil(quotationSummary.goldCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotationSummary.labourCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotationSummary.diamondCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotationSummary.gst).toLocaleString("en-IN")}</td>
+                  <td class="total">₹${Math.ceil(quotationSummary.total).toLocaleString("en-IN")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-
- 
-
-
-
-
-
-
-           <div class="section">
-            <h3>Quotation Generated By</h3>
+          <!-- GENERATED BY -->
+          <div class="section">
+            <h4>Quotation Generated By</h4>
             <table>
               <thead>
-                <tr>
-                  <th>Name</th><th>Mobile Number</th>
-                </tr>
+                <tr><th>Name</th><th>Mobile Number</th></tr>
               </thead>
               <tbody>
-                <tr>
-<td>${userName}</td>
-<td>${userMobile}</td>
-
-                </tr>
+                <tr><td>${userName}</td><td>${userMobile}</td></tr>
               </tbody>
             </table>
           </div>
 
-
-
-
-
-       <div class="note">
-  <h3>Notes</h3>
-  <ul>
-    <li><strong>All our diamonds</strong> are earth friendly <strong>CVD (Type II a)</strong> lab grown diamonds.</li>
-    <li>This design is specially crafted for you. There is a possibility of <strong>5% variance</strong> (more or less) in gold and diamond usage compared to the estimate above.</li>
-    <li><strong>Gold weight</strong> and <strong>making charges</strong> will be charged based on actual usage.</li>
-    <li>We offer <strong>85% buyback</strong>, <strong>100% exchange</strong> and <strong>Lifetime guarantee</strong> on diamonds purchased from us.</li>
-    <li>To book your order you need to pay <strong>25% advance</strong> against the estimated value above and the <strong>balance payment</strong> on dispatch.</li>
-  </ul>
-</div>
-</div>
-
-
+          <!-- NOTES -->
+          <div class="note">
+            <h4>Notes</h4>
+            <ul>
+              <li><strong>All our diamonds</strong> are earth friendly <strong>CVD (Type II a)</strong> lab grown diamonds.</li>
+              <li>This design is specially crafted for you. There is a possibility of <strong>5% variance</strong> (more or less) in gold and diamond usage compared to the estimate above.</li>
+              <li><strong>Gold weight</strong> and <strong>making charges</strong> will be charged based on actual usage.</li>
+              <li>We offer <strong>85% buyback</strong>, <strong>100% exchange</strong> and <strong>Lifetime guarantee</strong> on diamonds purchased from us.</li>
+              <li>To book your order you need to pay <strong>25% advance</strong> against the estimated value above and the <strong>balance payment</strong> on dispatch.</li>
+            </ul>
+          </div>
+        </div>
 
           <div class="page-break"></div>
           <br><br>
@@ -491,3 +426,4 @@ function generateQuotationHTML({qt_id, image_url, clientDetails, goldDetails, di
 }
 
 module.exports = { generateQuotationHTML };
+
