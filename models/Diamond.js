@@ -21,4 +21,5 @@ DiamondSchema.pre("save", function (next) {
     next();
 });
 
+
 module.exports = mongoose.model('Diamond', DiamondSchema);
