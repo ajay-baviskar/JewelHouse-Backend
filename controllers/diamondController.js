@@ -5,63 +5,70 @@ const fs = require('fs');
 
 // Import Diamonds from Excel
 const importDiamonds = async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({
-                code: 400,
-                status: false,
-                message: "Please upload an Excel file"
-            });
-        }
-
-        const filePath = req.file.path;
-
-        // Read Excel file
-        const workbook = xlsx.readFile(filePath);
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const data = xlsx.utils.sheet_to_json(sheet);
-
-        if (!data || data.length === 0) {
-            return res.status(400).json({
-                code: 400,
-                status: false,
-                message: "Excel file is empty or invalid format"
-            });
-        }
-
-        let insertedCount = 0;
-
-        for (const item of data) {
-            // Check if an exact match exists
-            const exists = await Diamond.findOne(item); // MongoDB will match all fields
-            if (!exists) {
-                await Diamond.create(item);
-                insertedCount++;
-            }
-        }
-
-        // Delete file after processing
-        fs.unlinkSync(filePath);
-
-        return res.status(200).json({
-            code: 200,
-            status: true,
-            message: "Diamonds imported successfully",
-            totalImported: insertedCount,
-            totalSkipped: data.length - insertedCount
-        });
-
-    } catch (err) {
-        console.error("Import Error:", err.message);
-        return res.status(500).json({
-            code: 500,
-            status: false,
-            message: "Failed to import diamonds",
-            error: err.message
-        });
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        code: 400,
+        status: false,
+        message: "Please upload an Excel file",
+      });
     }
+
+    const filePath = req.file.path;
+
+    // Read Excel file
+    const workbook = xlsx.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet);
+
+    if (!data || data.length === 0) {
+      return res.status(400).json({
+        code: 400,
+        status: false,
+        message: "Excel file is empty or invalid format",
+      });
+    }
+
+    // ✅ Insert all at once (fast)
+    let insertedCount = 0;
+    let skippedCount = 0;
+
+    try {
+      const result = await Diamond.insertMany(data, { ordered: false }); 
+      insertedCount = result.length;
+      skippedCount = data.length - result.length;
+    } catch (err) {
+      // Mongo will throw duplicate key error if unique index exists
+      if (err.writeErrors) {
+        insertedCount = err.result.result.nInserted;
+        skippedCount = data.length - insertedCount;
+      } else {
+        throw err;
+      }
+    }
+
+    // Delete file after processing
+    fs.unlinkSync(filePath);
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: "Diamonds imported successfully",
+      totalImported: insertedCount,
+      totalSkipped: skippedCount,
+    });
+  } catch (err) {
+    console.error("Import Error:", err.message);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Failed to import diamonds",
+      error: err.message,
+    });
+  }
 };
+
 
 
 // Get All Diamonds with Pagination
