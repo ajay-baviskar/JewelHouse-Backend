@@ -23,49 +23,49 @@ function generateQuotationHTML({
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #2c3e50;
             background: #fff;
+            font-size: 7px;
           }
           .page-wrapper {
-            margin: 10px;
-            padding: 16px 20px;
+            margin: 4px;
+            padding: 6px 8px;
             background-color: #ffffff;
-            border: 2px solid #0e4c35;
-            box-shadow: 0 0 6px rgba(0,0,0,0.2);
-            border-radius: 8px;
+            border: 1px solid #0e4c35;
+            border-radius: 4px;
           }
           header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 2px solid #c2c2c2;
-            padding: 6px 0;
-            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 1px solid #c2c2c2;
+            padding: 4px 0;
+            margin-bottom: 6px;
             background-color: #0e4c35;
           }
           header img {
-            height: 80px;
+            height: 50px;
+            display: block;
+            margin: 0 auto;
           }
           h4 {
-            margin: 10px 0 6px;
-            font-size: 10px;
+            margin: 4px 0 3px;
+            font-size: 8px;
             color: #1e8449;
-            border-left: 3px solid #0e4c35;
-            padding-left: 6px;
+            border-left: 2px solid #0e4c35;
+            padding-left: 4px;
             background: #f1f7f4;
           }
           .section p {
-            margin: 2px 0;
-            font-size: 9px;
+            margin: 1px 0;
+            font-size: 7px;
           }
           table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 4px;
+            margin-top: 2px;
             background-color: #fff;
           }
           th, td {
             border: 1px solid #ccc;
-            padding: 3px;
-            font-size: 7px;
+            padding: 2px;
+            font-size: 6px;
             text-align: left;
           }
           th {
@@ -73,11 +73,11 @@ function generateQuotationHTML({
             color: #fff;
           }
           .section {
-            margin-bottom: 10px;
-            padding: 3px;
+            margin-bottom: 6px;
+            padding: 2px;
             background: #f9fdfb;
             border: 1px solid #d8eae1;
-            border-radius: 4px;
+            border-radius: 2px;
           }
           .total {
             font-weight: bold;
@@ -85,70 +85,71 @@ function generateQuotationHTML({
             font-size: 7px;
           }
           .note {
-            margin-top: 12px;
-            padding: 8px;
+            margin-top: 6px;
+            padding: 4px;
             border: 1px dashed #0e4c35;
             background: #f5fffa;
-            border-radius: 4px;
+            border-radius: 2px;
+            font-size: 7px;
           }
           .note h4 {
-            margin-bottom: 4px;
-            font-size: 9px;
+            margin-bottom: 2px;
+            font-size: 7px;
             color: #0e4c35;
           }
           .note ul {
-            padding-left: 18px;
+            padding-left: 12px;
             margin: 0;
-            font-size: 9px;
+            font-size: 7px;
           }
           .note li {
-            margin-bottom: 4px;
-            line-height: 1.4;
+            margin-bottom: 2px;
+            line-height: 1.2;
           }
           * { box-sizing: border-box; }
           .column {
             float: left;
             width: 50%;
-            padding: 6px;
-            font-size: 9px;
+            padding: 2px;
+            font-size: 7px;
           }
           .row:after { content: ""; display: table; clear: both; }
           .page-break { page-break-before: always; }
           .main-title {
-            font-size: 16px;
+            font-size: 10px;
             font-weight: bold;
             color: #1e8449;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
           }
           .subtitle {
-            font-size: 14px;
+            font-size: 8px;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
           }
-          .step-content { margin-bottom: 12px; }
+          .step-content { margin-bottom: 6px; }
           .step-number {
-            font-size: 13px;
+            font-size: 8px;
             background: #1e8449;
             color: #fff;
             border-radius: 50%;
             display: inline-block;
-            padding: 4px 9px;
-            margin-right: 8px;
+            padding: 2px 6px;
+            margin-right: 4px;
             font-weight: bold;
             vertical-align: middle;
           }
           .step-title {
-            font-size: 13px;
+            font-size: 8px;
             color: #0e4c35;
             font-weight: bold;
             vertical-align: middle;
           }
           .step-description {
-            font-size: 11px;
+            font-size: 7px;
             color: #444;
-            line-height: 1.5;
-            margin-top: 5px;
+            line-height: 1.2;
+            margin-top: 2px;
           }
         </style>
       </head>
