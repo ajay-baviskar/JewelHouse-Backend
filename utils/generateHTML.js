@@ -28,7 +28,7 @@ function generateQuotationHTML({
             margin: 6px;
             padding: 10px 14px;
             background-color: #ffffff;
-            border: 1px solid #0e4c35;
+            border: 2px solid #0e4c35;
             border-radius: 6px;
           }
          header {
@@ -115,20 +115,20 @@ header img {
           .row:after { content: ""; display: table; clear: both; }
           .page-break { page-break-before: always; }
           .main-title {
-            font-size: 14px;
+            font-size: 17px;
             font-weight: bold;
             color: #1e8449;
             text-align: center;
             margin-bottom: 6px;
           }
           .subtitle {
-            font-size: 12px;
+            font-size: 16px;
             text-align: center;
             margin-bottom: 10px;
           }
           .step-content { margin-bottom: 8px; }
           .step-number {
-            font-size: 11px;
+            font-size: 14px;
             background: #1e8449;
             color: #fff;
             border-radius: 50%;
@@ -139,13 +139,13 @@ header img {
             vertical-align: middle;
           }
           .step-title {
-            font-size: 12px;
+            font-size: 14px;
             color: #0e4c35;
             font-weight: bold;
             vertical-align: middle;
           }
           .step-description {
-            font-size: 10px;
+            font-size: 13px;
             color: #444;
             line-height: 1.4;
             margin-top: 3px;
