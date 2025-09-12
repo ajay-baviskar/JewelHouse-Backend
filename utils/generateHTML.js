@@ -46,7 +46,7 @@ header img {
 
           h4 {
             margin: 6px 0 4px;
-            font-size: 12px;
+            font-size: 10px;
             color: #1e8449;
             border-left: 2px solid #0e4c35;
             padding-left: 4px;
@@ -54,7 +54,7 @@ header img {
           }
           .section p {
             margin: 2px 0;
-            font-size: 10px;
+            font-size: 9px;
           }
           table {
             width: 100%;
@@ -65,7 +65,7 @@ header img {
           th, td {
             border: 1px solid #ccc;
             padding: 2px 4px;
-            font-size: 10px;
+            font-size: 9px;
             text-align: left;
           }
           th {
@@ -82,7 +82,7 @@ header img {
           .total {
             font-weight: bold;
             color: #1e8449;
-            font-size: 11px;
+            font-size: 10px;
           }
           .note {
             margin-top: 8px;
@@ -110,7 +110,7 @@ header img {
             float: left;
             width: 50%;
             padding: 4px;
-            font-size: 10px;
+            font-size: 9px;
           }
           .row:after { content: ""; display: table; clear: both; }
           .page-break { page-break-before: always; }
