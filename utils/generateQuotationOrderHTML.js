@@ -1,8 +1,8 @@
 // utils/generateQuotationOrderHTML.js
 function generateQuotationOrderHTML({
-    quotation,
-    order,
-    user
+  quotation,
+  order,
+  user
 }) {
   return `
     <html>
@@ -163,12 +163,12 @@ header img {
                 </td>
                 <td style="text-align: right; border: none; color: inherit;">
 <strong>Date:</strong> ${(() => {
-  const dateObj = new Date(quotation.date);
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-})()}
+      const dateObj = new Date(quotation.date);
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const day = String(dateObj.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    })()}
                 </td>
               </tr>
             </table>
@@ -184,7 +184,7 @@ header img {
       <p><strong>Contact:</strong> ${quotation.clientDetails.contactNumber}</p>
       <p><strong>City:</strong> ${quotation.clientDetails.city}</p>
       <p><strong>Category:</strong> ${quotation.goldDetails.category}</p>
-            <p><strong>Size:</strong> ${ quotation.goldDetails.jewelrySize}</p>
+            <p><strong>Size:</strong> ${quotation.goldDetails.jewelrySize}</p>
     </div>
 
     <!-- Column 2: Image -->
@@ -318,7 +318,13 @@ header img {
               <tbody>
                 <tr>
                   <td>${order._id}</td>
-                  <td>${order.orderDate}</td>
+                  <td>${(() => {
+      const dateObj = new Date(order.orderDate);
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const day = String(dateObj.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    })()}</td>
                   <td>${order.customerDetails?.expectedDeliverydate}</td>
                   <td>${order.customerDetails.address}</td>
                  <td>${order.customerDetails.aadhaarNumber}</td>
