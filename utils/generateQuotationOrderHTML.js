@@ -153,24 +153,6 @@ header img {
             <img src="http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png" alt="Logo" />
           </header>
 
-          <div style="margin-top: 8px; margin-bottom: 12px;">
-            <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit; width:100%;">
-              <tr>
-                <td style="border: none; color: inherit;">
-                  <strong>Quotation ID:</strong> ${quotation._id}
-                </td>
-                <td style="text-align: right; border: none; color: inherit;">
-<strong>Date:</strong> ${(() => {
-      const dateObj = new Date(quotation.date);
-      const year = dateObj.getFullYear();
-      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-      const day = String(dateObj.getDate()).padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    })()}
-                </td>
-              </tr>
-            </table>
-          </div>
 
     <div class="section">
   <div class="row" style="display: flex; align-items: center; justify-content: space-between; text-align: center;">
