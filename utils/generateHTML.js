@@ -41,8 +41,6 @@ function generateQuotationHTML({
 header img {
   display: block;
   margin: 0 auto;
-    width: 70px;
-
   height: 70px;
 }
 
