@@ -176,29 +176,35 @@ header img {
             </table>
           </div>
 
-          <div class="section">
-            <div class="row">
-              <div class="column">
-                <h4>Client Details</h4>
-                <p><strong>Name:</strong> ${clientDetails.name}</p>
-                <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
-                <p><strong>City:</strong> ${clientDetails.city}</p>
-                <p><strong>Category:</strong> ${goldDetails.category}</p>
-              </div>
-            <div class="column" style="text-align:center;">
-  <img 
-    src="${image_url}" 
-    alt="Client Image" 
-    style="width:140px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
-    onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
-  />
-  <p><strong>Size:</strong> ${goldDetails.jewelrySize}</p>
+
+<div class="section">
+  <div class="row" style="display: flex; align-items: center; justify-content: space-between; text-align: center;">
+    
+    <!-- Column 1: Client Details -->
+    <div class="column" style="flex: 1; text-align: left;">
+      <h4>Client Details</h4>
+      <p><strong>Name:</strong> ${clientDetails.name}</p>
+      <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
+      <p><strong>City:</strong> ${clientDetails.city}</p>
+      <p><strong>Category:</strong> ${goldDetails.category}</p>
+            <p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
+    </div>
+
+    <!-- Column 2: Image -->
+    <div class="column" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <img 
+        src="${image_url}" 
+        alt="Client Image" 
+        style="width:150px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
+        onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
+      />
+    </div>
+
+   
+
+  </div>
 </div>
- 
 
-
-            </div>
-          </div>
 
           <!-- GOLD COST -->
           <div class="section">
