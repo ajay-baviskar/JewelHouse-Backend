@@ -423,6 +423,56 @@ const downloadDiamondsExcel = async (req, res) => {
 
 
 
+const getSizesByAttributes = async (req, res) => {
+  try {
+    const { color, shape, purity } = req.query;
+
+    if (!color || !shape || !purity) {
+      return res.status(400).json({
+        code: 400,
+        status: false,
+        message: "Please provide color, shape, and purity in query params"
+      });
+    }
+
+    // Fetch diamonds matching the criteria
+    const diamonds = await Diamond.find({
+      Color: color,
+      Shape: shape,
+      Purity: purity
+    }).select("Size -_id"); // Only fetch Size field
+
+    if (!diamonds || diamonds.length === 0) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: "No diamonds found for the given attributes"
+      });
+    }
+
+    // Extract unique sizes
+    const sizes = [...new Set(diamonds.map(d => d.Size))];
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: "Sizes fetched successfully",
+      data: sizes
+    });
+
+  } catch (error) {
+    console.error("Fetch Sizes Error:", error.message);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Error fetching sizes",
+      error: error.message
+    });
+  }
+};
+
+
+
 // Export all controller functions
 module.exports = {
     importDiamonds,
@@ -431,5 +481,6 @@ module.exports = {
     getDiamondPrice,
     updateDiamond,
     createDiamond,
-    downloadDiamondsExcel
+    downloadDiamondsExcel,
+    getSizesByAttributes
 };

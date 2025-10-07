@@ -1,4 +1,9 @@
 // controllers/orderController.js
+const { generateQuotationOrderHTML } = require('../utils/generateQuotationOrderHTML');
+const htmlPdf = require('html-pdf');
+const path = require('path');
+const fs = require('fs');
+
 const Order = require('../models/Order');
 const Quotation = require('../models/Quotation');
 const User = require('../models/User');
@@ -300,7 +305,46 @@ const getAllOrders = async (req, res) => {
 
 
 
+const generateQuotationOrderPDF = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findById(orderId).populate('quotationId');
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    const quotation = order.quotationId;
+    const user = await User.findById(order.userId).select("name email mobile");
+
+    const htmlContent = generateQuotationOrderHTML({ quotation, order, user });
+
+    const pdfsDir = path.join(__dirname, "../public/pdfs");
+    if (!fs.existsSync(pdfsDir)) fs.mkdirSync(pdfsDir, { recursive: true });
+
+    const fileName = `Quotation_Order_${orderId}.pdf`;
+    const filePath = path.join(pdfsDir, fileName);
+
+    htmlPdf.create(htmlContent).toFile(filePath, (err, result) => {
+      if (err) {
+        return res.status(500).json({ success: false, message: "Error generating PDF", error: err.message });
+      }
+
+      const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
+      res.status(200).json({
+        success: true,
+        message: "Quotation & Order PDF generated",
+        pdfUrl
+      });
+    });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
+};
+
+
 module.exports = {
+  
+generateQuotationOrderPDF,
   placeOrder,
   getOrderHistory,
   getSummaryCounts,

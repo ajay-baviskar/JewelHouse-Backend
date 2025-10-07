@@ -24,11 +24,12 @@ const goldDetailsSchema = new mongoose.Schema({
 const diamondDetailSchema = new mongoose.Schema({
   type: { type: String, enum: ['CENTER', 'STUDDED'] },
   shape: { type: String },
-  size: { type: Number },
+  size: { type: String },
   color: { type: String },
   clarity: { type: String },
   weight: { type: Number },
   ratePerCts: { type: Number },
+  carats:{type: String},
   discount: { type: Number },
   ratePerCtsAfterDis: { type: Number },
   totalAmount: { type: Number }
@@ -39,7 +40,9 @@ const quotationSummarySchema = new mongoose.Schema({
   labourCost: { type: Number },
   diamondCost: { type: Number },
   gst: { type: Number },
-  total: { type: Number }
+  total: { type: Number },
+  finalTotal: { type: Number }
+
 }, { _id: false });
 
 const quotationSchema = new mongoose.Schema({

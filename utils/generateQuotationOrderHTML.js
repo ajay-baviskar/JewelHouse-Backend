@@ -1,13 +1,8 @@
-function generateQuotationHTML({
-  qt_id,
-  image_url,
-  clientDetails,
-  goldDetails,
-  diamondDetails,
-  quotationSummary,
-  date,
-  userName,
-  userMobile
+// utils/generateQuotationOrderHTML.js
+function generateQuotationOrderHTML({
+    quotation,
+    order,
+    user
 }) {
   return `
     <html>
@@ -41,7 +36,7 @@ function generateQuotationHTML({
 header img {
   display: block;
   margin: 0 auto;
-    width: 70px;
+    height: 70px;
 
   height: 70px;
 }
@@ -164,13 +159,16 @@ header img {
             <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit; width:100%;">
               <tr>
                 <td style="border: none; color: inherit;">
-                  <strong>Quotation ID:</strong> ${qt_id}
+                  <strong>Quotation ID:</strong> ${quotation._id}
                 </td>
                 <td style="text-align: right; border: none; color: inherit;">
-                  <strong>Date:</strong> ${(() => {
-      const [year, month, day] = date.split("-");
-      return `${day}-${month}-${year}`;
-    })()}
+<strong>Date:</strong> ${(() => {
+  const dateObj = new Date(quotation.date);
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+})()}
                 </td>
               </tr>
             </table>
@@ -180,22 +178,20 @@ header img {
             <div class="row">
               <div class="column">
                 <h4>Client Details</h4>
-                <p><strong>Name:</strong> ${clientDetails.name}</p>
-                <p><strong>Contact:</strong> ${clientDetails.contactNumber}</p>
-                <p><strong>City:</strong> ${clientDetails.city}</p>
-                <p><strong>Category:</strong> ${goldDetails.category}</p>
+                <p><strong>Name:</strong> ${quotation.clientDetails.name}</p>
+                <p><strong>Contact:</strong> ${quotation.clientDetails.contactNumber}</p>
+                <p><strong>City:</strong> ${quotation.clientDetails.city}</p>
+                <p><strong>Category:</strong> ${quotation.goldDetails.category}</p>
               </div>
             <div class="column" style="text-align:center;">
   <img 
-    src="${image_url}" 
+    src="${quotation.image_url}" 
     alt="Client Image" 
-    style="width:140px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
+    style="max-width: 100%; height: 60px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
     onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
   />
-  <p><strong>Size:</strong> ${goldDetails.jewelrySize}</p>
+  <p><strong>Size:</strong> ${quotation.goldDetails.jewelrySize}</p>
 </div>
- 
-
 
             </div>
           </div>
@@ -211,11 +207,11 @@ header img {
               </thead>
               <tbody>
                 <tr>
-                  <td>${goldDetails.goldPurity}</td>
-                  <td>${goldDetails.goldColor}</td>
-                  <td>${goldDetails.weight}</td>
-                  <td>₹${Math.ceil(goldDetails.ratePerGram).toLocaleString("en-IN")}</td>
-                  <td>₹${Math.ceil(goldDetails.totalGoldCost).toLocaleString("en-IN")}</td>
+                  <td>${quotation.goldDetails.goldPurity}</td>
+                  <td>${quotation.goldDetails.goldColor}</td>
+                  <td>${quotation.goldDetails.weight}</td>
+                  <td>₹${Math.ceil(quotation.goldDetails.ratePerGram).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.goldDetails.totalGoldCost).toLocaleString("en-IN")}</td>
                 </tr>
               </tbody>
             </table>
@@ -232,16 +228,16 @@ header img {
               </thead>
               <tbody>
                 <tr>
-                  <td>${goldDetails.weight}</td>
-                  <td>₹${Math.ceil(goldDetails.labourCost).toLocaleString("en-IN")}</td>
-                  <td>₹${Math.ceil(goldDetails.totalLabourPrice).toLocaleString("en-IN")}</td>
+                  <td>${quotation.goldDetails.weight}</td>
+                  <td>₹${Math.ceil(quotation.goldDetails.labourCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.goldDetails.totalLabourPrice).toLocaleString("en-IN")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <!-- DIAMOND COST -->
-        <div class="section">
+               <div class="section">
   <h4>Estimated Diamond Cost</h4>
   <table>
     <thead>
@@ -258,7 +254,7 @@ header img {
       </tr>
     </thead>
     <tbody>
-      ${diamondDetails.map(d => `
+      ${quotation.diamondDetails.map(d => `
         <tr>
           <td>${d.type}</td>
           <td>${d.shape}</td>
@@ -280,7 +276,7 @@ header img {
   </table>
 </div>
 
-
+          
 
           <!-- SUMMARY -->
           <div class="section">
@@ -293,13 +289,34 @@ header img {
               </thead>
               <tbody>
                 <tr>
-                  <td>₹${Math.ceil(quotationSummary.goldCost).toLocaleString("en-IN")}</td>
-                  <td>₹${Math.ceil(quotationSummary.labourCost).toLocaleString("en-IN")}</td>
-                  <td>₹${Math.ceil(quotationSummary.diamondCost).toLocaleString("en-IN")}</td>
-                  <td>₹${Math.ceil(quotationSummary.gst).toLocaleString("en-IN")}</td>
-                  <td class="total">₹${Math.ceil(quotationSummary.total).toLocaleString("en-IN")}</td>
-                  <td class="total">₹${Math.ceil(quotationSummary.finalTotal).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.quotationSummary.goldCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.quotationSummary.labourCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.quotationSummary.diamondCost).toLocaleString("en-IN")}</td>
+                  <td>₹${Math.ceil(quotation.quotationSummary.gst).toLocaleString("en-IN")}</td>
+                  <td class="total">₹${Math.ceil(quotation.quotationSummary.total).toLocaleString("en-IN")}</td>
+                  <td class="total">₹${Math.ceil(quotation.quotationSummary.finalTotal).toLocaleString("en-IN")}</td>
 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+           <div class="section">
+            <h4>Order Deatils</h4>
+            <table>
+              <thead>
+                <tr> <th>Order ID</th><th>Order Date</th><th>Expected Delivery Date</th><th>Address</th><th>Addhar Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>${order._id}</td>
+                  <td>${order.orderDate}</td>
+                  <td>${order.customerDetails?.expectedDeliverydate}</td>
+                  <td>${order.customerDetails.address}</td>
+                 <td>${order.customerDetails.aadhaarNumber}</td>
+
+              
                 </tr>
               </tbody>
             </table>
@@ -313,22 +330,12 @@ header img {
                 <tr><th>Name</th><th>Mobile Number</th></tr>
               </thead>
               <tbody>
-                <tr><td>${userName}</td><td>${userMobile}</td></tr>
+                <tr><td>${user.name}</td><td>${user.mobile}</td></tr>
               </tbody>
             </table>
           </div>
 
-          <!-- NOTES -->
-          <div class="note">
-            <h4>Notes</h4>
-            <ul>
-              <li><strong>All our diamonds</strong> are earth friendly <strong>CVD (Type II a)</strong> lab grown diamonds.</li>
-              <li>This design is specially crafted for you. There is a possibility of <strong>5% variance</strong> (more or less) in gold and diamond usage compared to the estimate above.</li>
-              <li><strong>Gold weight</strong> and <strong>making charges</strong> will be charged based on actual usage.</li>
-              <li>We offer <strong>85% buyback</strong>, <strong>100% exchange</strong> and <strong>Lifetime guarantee</strong> on diamonds purchased from us.</li>
-              <li>To book your order you need to pay <strong>25% advance</strong> against the estimated value above and the <strong>balance payment</strong> on dispatch.</li>
-            </ul>
-          </div>
+
         </div>
 
           <div class="page-break"></div>
@@ -452,5 +459,5 @@ header img {
   `;
 }
 
-module.exports = { generateQuotationHTML };
 
+module.exports = { generateQuotationOrderHTML };
