@@ -190,7 +190,7 @@ header img {
       <img 
         src="${quotation.image_url}" 
         alt="Client Image" 
-        style="width:150px; height:90px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
+        style="width:150px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
         onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
       />
     </div>
