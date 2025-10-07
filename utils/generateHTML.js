@@ -158,22 +158,6 @@ header img {
             <img src="http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png" alt="Logo" />
           </header>
 
-          <div style="margin-top: 8px; margin-bottom: 12px;">
-            <table style="border-collapse: collapse; font-size: 11px; border: none; color: inherit; width:100%;">
-              <tr>
-                <td style="border: none; color: inherit;">
-                  <strong>Quotation ID:</strong> ${qt_id}
-                </td>
-                <td style="text-align: right; border: none; color: inherit;">
-                  <strong>Date:</strong> ${(() => {
-      const [year, month, day] = date.split("-");
-      return `${day}-${month}-${year}`;
-    })()}
-                </td>
-              </tr>
-            </table>
-          </div>
-
 
 <div class="section">
   <div class="row" style="display: flex; align-items: center; justify-content: space-between; text-align: center;">
@@ -186,6 +170,10 @@ header img {
       <p><strong>City:</strong> ${clientDetails.city}</p>
       <p><strong>Category:</strong> ${goldDetails.category}</p>
             <p><strong>Size:</strong> ${ goldDetails.jewelrySize}</p>
+                  <p> <strong>Date:</strong> ${(() => {
+      const [year, month, day] = date.split("-");
+      return `${day}-${month}-${year}`;
+    })()}</p>
     </div>
 
     <!-- Column 2: Image -->
@@ -193,7 +181,7 @@ header img {
       <img 
         src="${image_url}" 
         alt="Client Image" 
-        style="width:150px; height:90px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
+        style="width:150px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
         onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
       />
     </div>
