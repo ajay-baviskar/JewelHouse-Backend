@@ -341,6 +341,9 @@ const createDiamond = async (req, res) => {
       });
     }
 
+    // ✅ Generate unique key before saving
+    const uniqueKey = `${Size || ''}-${Color || ''}-${Shape || ''}-${Purity || ''}-${Discount || ''}-${Price || ''}`;
+
     const diamond = new Diamond({
       Size,
       Color,
@@ -348,6 +351,7 @@ const createDiamond = async (req, res) => {
       Purity,
       Discount,
       Price,
+      uniqueKey
     });
 
     await diamond.save();
@@ -358,7 +362,18 @@ const createDiamond = async (req, res) => {
       message: "Diamond inserted successfully",
       data: diamond,
     });
+
   } catch (err) {
+    // Handle duplicate key error nicely
+    if (err.code === 11000) {
+      return res.status(409).json({
+        code: 409,
+        status: false,
+        message: "Duplicate diamond entry detected — skipped",
+      });
+    }
+
+    console.error("Create Diamond Error:", err.message);
     return res.status(500).json({
       code: 500,
       status: false,
@@ -367,6 +382,7 @@ const createDiamond = async (req, res) => {
     });
   }
 };
+
 
 
 const downloadDiamondsExcel = async (req, res) => {
