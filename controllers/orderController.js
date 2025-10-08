@@ -341,6 +341,46 @@ const generateQuotationOrderPDF = async (req, res) => {
   }
 };
 
+const deleteOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    // Find the order
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: 'Order not found',
+      });
+    }
+
+    // Optionally update quotation status to pending if linked
+    if (order.quotationId) {
+      await Quotation.findByIdAndUpdate(order.quotationId, { orderStatus: 'pending' });
+    }
+
+    // Delete the order
+    await Order.findByIdAndDelete(orderId);
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: 'Order deleted successfully',
+    });
+
+  } catch (error) {
+    console.error('Error deleting order:', error.message);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: 'Server error while deleting order',
+      error: error.message,
+    });
+  }
+};
+
+
 
 module.exports = {
   
@@ -349,5 +389,6 @@ generateQuotationOrderPDF,
   getOrderHistory,
   getSummaryCounts,
   updateOrderStatus,
-  getAllOrders
+  getAllOrders,
+  deleteOrder
 };
