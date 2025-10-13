@@ -404,6 +404,40 @@ const updatePassword = async (req, res) => {
 };
 
 
+// ✅ Delete User
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params; // user ID from URL
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        code: 404,
+        status: false,
+        message: "User not found",
+      });
+    }
+
+    await User.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      code: 200,
+      status: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete user error:", error);
+    return res.status(500).json({
+      code: 500,
+      status: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+
+
 module.exports = {
     register: exports.register,
     login: exports.login,
@@ -412,4 +446,5 @@ module.exports = {
     getAllUsers,
     editUser,
     updatePassword,
+    deleteUser
 };
