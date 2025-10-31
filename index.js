@@ -37,7 +37,7 @@ app.use('/backend/api/order', orderRoutes);
 app.use('/backend/api/upload', imageUploadRoute);
 
 // ✅ Default route
-app.get('/', (req, res) => {
+app.get('/backend', (req, res) => {
   res.send('Hello from Node.js & Express!');
 });
 
