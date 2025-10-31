@@ -6,16 +6,21 @@ const path = require('path');
 
 const app = express();
 
-// Connect to MongoDB
+// ✅ Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(cors());
+// ✅ Middleware
+app.use(cors({
+  origin: "*", // You can replace * with your frontend URL for security
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 app.use('/pdfs', express.static(path.join(__dirname, 'public/pdfs')));
-app.use('/images', express.static('public/images'));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Route imports
+// ✅ Route imports
 const goldRoutes = require('./routes/goldRoutes');
 const diamondRoutes = require('./routes/diamondRoutes');
 const quotationRoutes = require('./routes/quotationRoutes');
@@ -23,7 +28,7 @@ const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/orderRoutes');
 const imageUploadRoute = require('./routes/imageUploadRoute');
 
-// Routes
+// ✅ Routes
 app.use('/api/gold', goldRoutes);
 app.use('/api/diamonds', diamondRoutes);
 app.use('/api/quotation', quotationRoutes);
@@ -31,11 +36,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/upload', imageUploadRoute);
 
-// Default route
+// ✅ Default route
 app.get('/', (req, res) => {
-    res.send('Hello from Node.js & Express!');
+  res.send('Hello from Node.js & Express!');
 });
 
-// Start server
+// ✅ Start server
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
