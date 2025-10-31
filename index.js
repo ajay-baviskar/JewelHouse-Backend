@@ -29,12 +29,12 @@ const orderRoutes = require('./routes/orderRoutes');
 const imageUploadRoute = require('./routes/imageUploadRoute');
 
 // ✅ Routes
-app.use('/api/gold', goldRoutes);
-app.use('/api/diamonds', diamondRoutes);
-app.use('/api/quotation', quotationRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/order', orderRoutes);
-app.use('/api/upload', imageUploadRoute);
+app.use('backend/api/gold', goldRoutes);
+app.use('backend/api/diamonds', diamondRoutes);
+app.use('backend/api/quotation', quotationRoutes);
+app.use('backend/api/auth', authRoutes);
+app.use('backend/api/order', orderRoutes);
+app.use('backend/api/upload', imageUploadRoute);
 
 // ✅ Default route
 app.get('/', (req, res) => {
