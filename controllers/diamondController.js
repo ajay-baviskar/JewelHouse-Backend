@@ -17,11 +17,11 @@ const importDiamonds = async (req, res) => {
 
     const filePath = req.file.path;
 
-    // Read Excel
+    // Read Excel file
     const workbook = xlsx.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
-    let data = xlsx.utils.sheet_to_json(sheet);
+    const data = xlsx.utils.sheet_to_json(sheet);
 
     if (!data || data.length === 0) {
       return res.status(400).json({
@@ -31,34 +31,44 @@ const importDiamonds = async (req, res) => {
       });
     }
 
-    // ✅ Add uniqueKey for each record (before insertMany)
+    // ✅ Prepare data with unique keys
     const withKeys = data.map((d) => ({
       ...d,
       uniqueKey: `${d.Size || ''}-${d.Color || ''}-${d.Shape || ''}-${d.Purity || ''}-${d.Discount || ''}-${d.Price || ''}`
     }));
 
     let insertedCount = 0;
+    let updatedCount = 0;
 
-    try {
-      const result = await Diamond.insertMany(withKeys, { ordered: false });
-      insertedCount = result.length;
-    } catch (err) {
-      // Mongo will throw duplicate key errors, count successful inserts
-      if (err.writeErrors) {
-        insertedCount = err.result?.result?.nInserted || 0;
-      } else {
-        throw err;
+    // ✅ Use bulkWrite for super-fast upsert (insert or update)
+    const bulkOps = withKeys.map((item) => ({
+      updateOne: {
+        filter: { 
+          Size: item.Size, 
+          Color: item.Color, 
+          Shape: item.Shape, 
+          Purity: item.Purity, 
+          Discount: item.Discount 
+        },
+        update: { $set: item },
+        upsert: true
       }
-    }
+    }));
+
+    const result = await Diamond.bulkWrite(bulkOps, { ordered: false });
+
+    insertedCount = result.upsertedCount;
+    updatedCount = result.modifiedCount;
 
     fs.unlinkSync(filePath);
 
     return res.status(200).json({
       code: 200,
       status: true,
-      message: "Diamonds imported successfully",
-      totalImported: insertedCount,
-      totalSkipped: data.length - insertedCount
+      message: "Diamonds imported/updated successfully",
+      totalInserted: insertedCount,
+      totalUpdated: updatedCount,
+      totalProcessed: insertedCount + updatedCount
     });
 
   } catch (err) {
@@ -71,6 +81,7 @@ const importDiamonds = async (req, res) => {
     });
   }
 };
+
 
 
 
