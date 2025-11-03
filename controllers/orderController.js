@@ -328,7 +328,7 @@ const generateQuotationOrderPDF = async (req, res) => {
         return res.status(500).json({ success: false, message: "Error generating PDF", error: err.message });
       }
 
-      const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
+      const pdfUrl = `https://thejewelhouse.com/pdfs/${fileName}`;
       res.status(200).json({
         success: true,
         message: "Quotation & Order PDF generated",
