@@ -7,7 +7,9 @@ const uploadImage = async (req, res) => {
       return res.status(400).json({ status: false, message: 'userId and image are required' });
     }
 
-    const imageUrl = `https://thejewelhouse.com/images/${req.file.filename}`;
+    // const imageUrl = `https://thejewelhouse.com/images/${req.file.filename}`;
+        const imageUrl = `http://62.72.33.172:4000/images/${req.file.filename}`;
+
 
     const newImage = new Image({ userId, imageUrl });
     await newImage.save();

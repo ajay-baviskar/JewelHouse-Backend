@@ -89,7 +89,9 @@ const submitQuotation = async (req, res) => {
         });
       }
 
-      const pdfUrl = `https://thejewelhouse.com/pdfs/${fileName}`;
+      // const pdfUrl = `https://thejewelhouse.com/pdfs/${fileName}`;
+            const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
+
 
       // ✅ Save the PDF URL to the quotation document
       await Quotation.findByIdAndUpdate(newQuotation._id, {
