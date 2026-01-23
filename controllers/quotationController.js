@@ -206,7 +206,7 @@ const updateQuotation = async (req, res) => {
         });
       }
 
-      const pdfUrl = `https://thejewelhouse.com/pdfs/${fileName}`;
+      const pdfUrl = `http://62.72.33.172:4000/pdfs/${fileName}`;
 
       // ✅ Save PDF URL
       await Quotation.findByIdAndUpdate(quotationId, { $set: { pdfUrl } });

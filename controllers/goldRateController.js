@@ -3,9 +3,9 @@ const GoldRate = require("../models/goldRate");
 // ✅ Create
 const createGoldRate = async (req, res) => {
   try {
-    const { rate24k, rate22k, rate18k, rate14k } = req.body;
+    const {rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
 
-    const goldRate = new GoldRate({ rate24k, rate22k, rate18k, rate14k });
+    const goldRate = new GoldRate({ rate9k,rate24k, rate22k, rate18k, rate14k });
     await goldRate.save();
 
     return res.status(201).json({
