@@ -50,11 +50,11 @@ const getGoldRateById = async (req, res) => {
 // ✅ Update
 const updateGoldRate = async (req, res) => {
   try {
-    const { rate24k, rate22k, rate18k, rate14k } = req.body;
+    const { rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
 
     const updatedRate = await GoldRate.findByIdAndUpdate(
       req.params.id,
-      { rate24k, rate22k, rate18k, rate14k },
+      { rate9k, rate24k, rate22k, rate18k, rate14k },
       { new: true }
     );
 
