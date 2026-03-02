@@ -3,9 +3,9 @@ const GoldRate = require("../models/goldRate");
 // ✅ Create
 const createGoldRate = async (req, res) => {
   try {
-    const {rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
+    const {rate999Platinum,rate925Silver,rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
 
-    const goldRate = new GoldRate({ rate9k,rate24k, rate22k, rate18k, rate14k });
+    const goldRate = new GoldRate({rate999Platinum, rate925Silver, rate9k,rate24k, rate22k, rate18k, rate14k });
     await goldRate.save();
 
     return res.status(201).json({
@@ -50,11 +50,11 @@ const getGoldRateById = async (req, res) => {
 // ✅ Update
 const updateGoldRate = async (req, res) => {
   try {
-    const { rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
+    const { rate999Platinum,rate925Silver,rate9k, rate24k, rate22k, rate18k, rate14k } = req.body;
 
     const updatedRate = await GoldRate.findByIdAndUpdate(
       req.params.id,
-      { rate9k, rate24k, rate22k, rate18k, rate14k },
+      { rate999Platinum,rate925Silver,rate9k, rate24k, rate22k, rate18k, rate14k },
       { new: true }
     );
 
