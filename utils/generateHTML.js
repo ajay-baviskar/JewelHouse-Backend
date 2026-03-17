@@ -175,6 +175,7 @@ header img {
       const [year, month, day] = date.split("-");
       return `${day}-${month}-${year}`;
     })()}</p>
+    <p><b>Style Code:</b> ${clientDetails.styleCode  }</p>
     </div>
 
     <!-- Column 2: Image -->
@@ -185,6 +186,10 @@ header img {
         style="width:150px; height:110px; border: 1px solid #ccc; border-radius: 6px; object-fit: contain;" 
         onerror="this.onerror=null; this.src='http://62.72.33.172:4000/images/1755179872326-Copy of Untitled Design-Photoroom (1).png';"
       />
+    </div>
+
+    <div style="font-size: 9px">
+    <b>Remark :</b> ${clientDetails.remarks}
     </div>
 
    
