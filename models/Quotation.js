@@ -7,7 +7,7 @@ const clientDetailsSchema = new mongoose.Schema({
   email: { type: String },
   city: { type: String },
   styleCode: { type: String },
-    remarks: { type: String }
+    remark: { type: String }
 
 
 

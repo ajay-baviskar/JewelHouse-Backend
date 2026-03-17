@@ -189,7 +189,7 @@ header img {
     </div>
 
     <div style="font-size: 9px">
-    <b>Remark :</b> ${clientDetails.remarks}
+    <b>Remark :</b> ${clientDetails.remark}
     </div>
 
    
